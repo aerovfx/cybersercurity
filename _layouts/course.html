@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/course.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/course-cards.css' | relative_url }}">
 </head>
 <body>
   <div class="reading-progress" id="reading-progress"></div>
@@ -33,6 +34,7 @@
 
     <main class="course-main">
       <div class="doc-status"><span>DOC://{{ page.path | split: '/' | last | upcase }}</span><span>VERIFIED_CONTENT</span></div>
+      <nav class="resource-nav" id="resource-nav" aria-label="Nội dung khóa học"></nav>
       <article class="markdown-body" id="lesson-content">
         {{ content }}
       </article>
@@ -45,4 +47,3 @@
   <script src="{{ '/course.js' | relative_url }}"></script>
 </body>
 </html>
-

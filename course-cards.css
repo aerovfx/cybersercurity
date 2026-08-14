@@ -1,0 +1,18 @@
+/* Portal-aligned document cards */
+.course-main { max-width: 940px; }
+.doc-status { margin-bottom: 1rem; }
+.resource-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 0 0 2.4rem; }
+.resource-nav a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .5rem; padding: .7rem .75rem; background: rgba(49,247,255,.025); border: 1px solid var(--line); color: #8ba3a8; font: 500 .6rem var(--mono); text-transform: uppercase; clip-path: polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px); }
+.resource-nav a b { font-size: .48rem; color: var(--pink); }
+.resource-nav a i { font-style: normal; color: #4f696f; }
+.resource-nav a:hover,.resource-nav a.active { background: var(--cyan); border-color: var(--cyan); color: #001012; box-shadow: 0 0 16px rgba(49,247,255,.18); }
+.resource-nav a:hover b,.resource-nav a:hover i,.resource-nav a.active b,.resource-nav a.active i { color: #001012; }
+.doc-hero { position: relative; padding: clamp(1.5rem,4vw,3rem); margin-bottom: 1rem; background: linear-gradient(135deg,rgba(14,28,32,.98),rgba(7,12,15,.98)); border: 1px solid var(--line); clip-path: polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px); }
+.doc-hero::before { content: "COURSE_DOCUMENT"; display: block; margin-bottom: 1.2rem; color: var(--pink); font: 500 .55rem var(--mono); letter-spacing: .2em; }
+.doc-hero::after { content: ""; position: absolute; left: 20px; top: 0; width: 110px; height: 2px; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }
+.doc-section { position: relative; margin: 12px 0; padding: clamp(1.3rem,3vw,2.4rem); background: linear-gradient(145deg,rgba(12,22,26,.9),rgba(6,11,14,.94)); border: 1px solid rgba(49,247,255,.13); clip-path: polygon(12px 0,100% 0,100% calc(100% - 12px),calc(100% - 12px) 100%,0 100%,0 12px); }
+.doc-section:hover { border-color: rgba(49,247,255,.3); }
+.doc-section::before { content: ""; position: absolute; left: 12px; top: 0; width: 42px; height: 1px; background: var(--pink); box-shadow: 0 0 8px var(--pink); }
+.markdown-body .doc-section h2 { font-size: clamp(1.45rem,3vw,2.15rem); margin: 0 0 1.2rem; }
+@media (max-width:800px) { .resource-nav { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:520px) { .resource-nav a { padding: .65rem .55rem; } .doc-hero,.doc-section { clip-path: none; } }
