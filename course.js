@@ -2,6 +2,25 @@ const content = document.querySelector('#lesson-content');
 const toc = document.querySelector('#toc');
 const headings = [...content.querySelectorAll('h2, h3')];
 
+const sidebarToggle = document.querySelector('#sidebar-toggle');
+const sidebarPreferenceKey = 'cyberlearn-sidebar-collapsed';
+
+function setSidebarCollapsed(collapsed) {
+  document.body.classList.toggle('sidebar-collapsed', collapsed);
+  sidebarToggle.setAttribute('aria-expanded', String(!collapsed));
+  sidebarToggle.setAttribute('aria-label', collapsed ? 'Mở rộng thanh bên' : 'Thu gọn thanh bên');
+  sidebarToggle.querySelector('span').textContent = collapsed ? '›' : '‹';
+}
+
+if (sidebarToggle) {
+  setSidebarCollapsed(localStorage.getItem(sidebarPreferenceKey) === 'true');
+  sidebarToggle.addEventListener('click', () => {
+    const collapsed = !document.body.classList.contains('sidebar-collapsed');
+    setSidebarCollapsed(collapsed);
+    localStorage.setItem(sidebarPreferenceKey, String(collapsed));
+  });
+}
+
 const pathParts = location.pathname.split('/').filter(Boolean);
 const courseIndex = pathParts.findIndex((part) => part.endsWith('-10weeks'));
 if (courseIndex !== -1) {
@@ -99,6 +118,61 @@ if (firstSection > 0) {
     section.appendChild(current);
     current = next;
   }
+});
+
+// Nâng cấp các khối mã nguồn thành khung có tiêu đề, mô tả và nút sao chép.
+[...content.querySelectorAll('pre')].forEach((pre, index) => {
+  const code = pre.querySelector('code');
+  if (!code || pre.closest('.code-frame')) return;
+
+  const heading = [...content.querySelectorAll('h2, h3, h4')]
+    .filter((candidate) => candidate.compareDocumentPosition(pre) & Node.DOCUMENT_POSITION_FOLLOWING)
+    .pop();
+  const description = heading?.nextElementSibling?.tagName === 'P'
+    ? heading.nextElementSibling.textContent.replace(/^Chức năng:\s*/i, '')
+    : '';
+  if (description) heading.nextElementSibling.classList.add('code-description-source');
+
+  const frame = document.createElement('div');
+  frame.className = 'code-frame';
+
+  const toolbar = document.createElement('div');
+  toolbar.className = 'code-toolbar';
+
+  const meta = document.createElement('div');
+  meta.className = 'code-meta';
+  const titleGroup = document.createElement('div');
+  titleGroup.className = 'code-title';
+  const title = document.createElement('strong');
+  title.textContent = heading?.textContent || `CODE BLOCK ${String(index + 1).padStart(2, '0')}`;
+  titleGroup.appendChild(title);
+  if (description) {
+    const summary = document.createElement('small');
+    summary.textContent = description;
+    titleGroup.appendChild(summary);
+  }
+  const language = document.createElement('span');
+  language.textContent = [...code.classList].find((name) => name.startsWith('language-'))?.replace('language-', '').toUpperCase() || 'CODE';
+  meta.append(titleGroup, language);
+
+  const copyButton = document.createElement('button');
+  copyButton.type = 'button';
+  copyButton.className = 'code-copy';
+  copyButton.innerHTML = 'COPY CODE <span aria-hidden="true">⧉</span>';
+  copyButton.setAttribute('aria-label', `Sao chép mã nguồn ${title.textContent}`);
+  copyButton.addEventListener('click', async () => {
+    await navigator.clipboard.writeText(code.textContent);
+    copyButton.classList.add('copied');
+    copyButton.innerHTML = 'ĐÃ SAO CHÉP <span aria-hidden="true">✓</span>';
+    setTimeout(() => {
+      copyButton.classList.remove('copied');
+      copyButton.innerHTML = 'COPY CODE <span aria-hidden="true">⧉</span>';
+    }, 1600);
+  });
+
+  toolbar.append(meta, copyButton);
+  pre.parentNode.insertBefore(frame, pre);
+  frame.append(toolbar, pre);
 });
 
 document.querySelector('#copy-link').addEventListener('click', async (event) => {

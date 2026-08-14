@@ -28,6 +28,18 @@
 .lesson-pagination i { color: var(--cyan); font: normal 1.1rem var(--mono); }
 .lesson-pagination span { display: grid; font: 600 .75rem var(--sans); }
 .lesson-pagination small { margin-bottom: .15rem; color: #698187; font: 500 .5rem var(--mono); letter-spacing: .1em; }
+.code-frame { margin: 1.8rem 0; border: 1px solid rgba(49,247,255,.24); background: #050a0c; box-shadow: 8px 8px 0 rgba(49,247,255,.035); }
+.code-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 54px; padding: .55rem .65rem .55rem 1rem; border-bottom: 1px solid var(--line); background: linear-gradient(90deg,rgba(49,247,255,.07),rgba(255,43,214,.035)); }
+.code-meta { display: flex; min-width: 0; align-items: center; gap: .7rem; }
+.code-title { display: grid; min-width: 0; gap: .15rem; }
+.code-meta strong { overflow: hidden; color: var(--white); font: 600 .64rem var(--mono); text-overflow: ellipsis; white-space: nowrap; }
+.code-title small { overflow: hidden; color: #789095; font: 400 .54rem var(--sans); text-overflow: ellipsis; white-space: nowrap; }
+.code-meta span { flex: 0 0 auto; padding: .15rem .35rem; border: 1px solid rgba(255,43,214,.35); color: var(--pink); font: 500 .47rem var(--mono); }
+.code-copy { flex: 0 0 auto; padding: .52rem .7rem; border: 1px solid var(--cyan); background: transparent; color: var(--cyan); font: 500 .54rem var(--mono); letter-spacing: .06em; cursor: pointer; }
+.code-copy:hover,.code-copy:focus-visible { background: var(--cyan); color: #001012; outline: none; }
+.code-copy.copied { border-color: var(--acid); background: rgba(198,255,0,.1); color: var(--acid); }
+.markdown-body .code-frame pre { margin: 0; border: 0; border-left: 3px solid var(--cyan); box-shadow: none; }
+.code-description-source { display: none; }
 .doc-hero { position: relative; padding: clamp(1.5rem,4vw,3rem); margin-bottom: 1rem; background: linear-gradient(135deg,rgba(14,28,32,.98),rgba(7,12,15,.98)); border: 1px solid var(--line); clip-path: polygon(20px 0,100% 0,100% calc(100% - 20px),calc(100% - 20px) 100%,0 100%,0 20px); }
 .doc-hero::before { content: "COURSE_DOCUMENT"; display: block; margin-bottom: 1.2rem; color: var(--pink); font: 500 .55rem var(--mono); letter-spacing: .2em; }
 .doc-hero::after { content: ""; position: absolute; left: 20px; top: 0; width: 110px; height: 2px; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); }

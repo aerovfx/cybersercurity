@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/course.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/course-cards.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/course-sidebar.css' | relative_url }}">
 </head>
 <body>
   <div class="reading-progress" id="reading-progress"></div>
@@ -25,6 +26,8 @@
 
   <div class="course-shell">
     <aside class="course-sidebar">
+      <button class="sidebar-toggle" id="sidebar-toggle" type="button" aria-controls="course-sidebar-content" aria-expanded="true" aria-label="Thu gọn thanh bên"><span aria-hidden="true">‹</span></button>
+      <div class="course-sidebar-content" id="course-sidebar-content">
       <p class="label">// DOCUMENT</p>
       <p class="file-name">{{ page.path }}</p>
       <nav id="toc" aria-label="Mục lục bài học">
@@ -33,6 +36,7 @@
       <div class="sidebar-actions">
         <button id="copy-link" type="button">COPY LINK <span>↗</span></button>
         <a href="https://github.com/aerovfx/cybersercurity/blob/main/{{ page.path }}" target="_blank" rel="noreferrer">VIEW SOURCE <span>↗</span></a>
+      </div>
       </div>
     </aside>
 
