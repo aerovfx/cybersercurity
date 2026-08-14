@@ -7,9 +7,12 @@ const courseIndex = pathParts.findIndex((part) => part.endsWith('-10weeks'));
 if (courseIndex !== -1) {
   const courseRoot = `/${pathParts.slice(0, courseIndex + 1).join('/')}`;
   const isCrypto = courseRoot.includes('/2_Cryptography/');
+  const weekMatch = location.pathname.match(/week(\d{2})/i);
+  const currentWeek = weekMatch ? Number(weekMatch[1]) : 1;
+  const weekSlug = `week${String(currentWeek).padStart(2, '0')}`;
   const resources = [
-    ['Lesson', `${courseRoot}/lessons/week01.html`, '/lessons/'],
-    ['Code', `${courseRoot}/code/week01/README.html`, '/code/'],
+    ['Lesson', `${courseRoot}/lessons/${weekSlug}.html`, '/lessons/'],
+    ['Code', `${courseRoot}/code/${weekSlug}/README.html`, '/code/'],
     ['Exercise', isCrypto ? `${courseRoot}/code/week01/14_bai_tap_thuc_hanh_bai_ve_nha_hands_on_exercises_homewo.py` : `${courseRoot}/exercises/week01/README.html`, '/exercises/'],
     ['Project', `${courseRoot}/projects/final_project.html`, '/projects/']
   ];
@@ -22,6 +25,41 @@ if (courseIndex !== -1) {
     if (location.pathname.includes(matcher) || cryptoExercise) link.classList.add('active');
     resourceNav.appendChild(link);
   });
+
+  const weekNav = document.querySelector('#week-nav');
+  const weekLabel = document.createElement('span');
+  weekLabel.className = 'week-nav-label';
+  weekLabel.textContent = '// CHỌN TUẦN';
+  weekNav.appendChild(weekLabel);
+
+  const weekLinks = document.createElement('div');
+  weekLinks.className = 'week-nav-links';
+  for (let week = 1; week <= 10; week += 1) {
+    const link = document.createElement('a');
+    link.href = `${courseRoot}/lessons/week${String(week).padStart(2, '0')}.html`;
+    link.textContent = String(week).padStart(2, '0');
+    link.setAttribute('aria-label', `Mở bài học tuần ${week}`);
+    if (week === currentWeek) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    }
+    weekLinks.appendChild(link);
+  }
+  weekNav.appendChild(weekLinks);
+
+  const pagination = document.querySelector('#lesson-pagination');
+  const addPaginationLink = (week, direction) => {
+    const link = document.createElement('a');
+    link.className = `lesson-${direction}`;
+    link.href = `${courseRoot}/lessons/week${String(week).padStart(2, '0')}.html`;
+    link.innerHTML = direction === 'previous'
+      ? `<i>←</i><span><small>BÀI TRƯỚC</small>Tuần ${week}</span>`
+      : `<span><small>BÀI TIẾP THEO</small>Tuần ${week}</span><i>→</i>`;
+    pagination.appendChild(link);
+  };
+  if (currentWeek > 1) addPaginationLink(currentWeek - 1, 'previous');
+  if (currentWeek < 10) addPaginationLink(currentWeek + 1, 'next');
+  if (currentWeek === 1) pagination.classList.add('only-next');
 }
 
 function slugify(text, index) {

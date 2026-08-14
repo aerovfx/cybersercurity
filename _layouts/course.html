@@ -39,9 +39,11 @@
     <main class="course-main">
       <div class="doc-status"><span>DOC://{{ page.path | split: '/' | last | upcase }}</span><span>VERIFIED_CONTENT</span></div>
       <nav class="resource-nav" id="resource-nav" aria-label="Nội dung khóa học"></nav>
+      <nav class="week-nav" id="week-nav" aria-label="Điều hướng bài học theo tuần"></nav>
       <article class="markdown-body" id="lesson-content">
         {{ content }}
       </article>
+      <nav class="lesson-pagination" id="lesson-pagination" aria-label="Bài học trước và tiếp theo"></nav>
       <footer class="course-footer">
         <p>END_OF_DOCUMENT</p>
         <a href="{{ '/#courses' | relative_url }}">Chọn nội dung tiếp theo →</a>
