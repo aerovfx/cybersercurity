@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Final Project"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/projects/final_project.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/projects/final_project.html
 ---
 
 # Hướng Dẫn Dự Án Cuối Khoá / Final Capstone Project Guide

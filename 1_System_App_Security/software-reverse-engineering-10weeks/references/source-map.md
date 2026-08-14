@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Source Map"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/references/source-map.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/references/source-map.html
 ---
 
 # Ánh xạ tài liệu từ thư mục docs

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week03"
-permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week03.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week03.html
 ---
 
 # Tuần 3: Hardening và quản lý thông tin xác thực

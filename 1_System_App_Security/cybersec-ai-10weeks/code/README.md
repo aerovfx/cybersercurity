@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/code/README.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/code/README.html
 ---
 
 # Code minh họa — Cybersecurity & AI

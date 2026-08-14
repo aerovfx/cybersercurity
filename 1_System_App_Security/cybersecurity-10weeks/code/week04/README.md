@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/cybersecurity-10weeks/code/week04/README.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/code/week04/README.html
 ---
 
 # Tuần 04 — 20 code minh họa

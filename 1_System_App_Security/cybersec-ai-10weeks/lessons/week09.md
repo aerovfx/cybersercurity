@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week09"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week09.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week09.html
 ---
 
 # Tuần 09: Kiểm toán mã nguồn và Phân tích nhật ký bảo mật bằng AI / Week 09: Secure Code Auditing & Security Log Analysis using AI

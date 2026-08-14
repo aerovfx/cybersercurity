@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week01"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week01.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week01.html
 ---
 
 # Tuần 1: Giới thiệu Python cho Security & Lập trình Socket cơ bản / Week 1: Introduction to Python for Security & Basic Socket Programming

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/exercises/week08/README.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/exercises/week08/README.html
 ---
 
 # Bài tập tuần 8: AI OSINT có kiểm chứng

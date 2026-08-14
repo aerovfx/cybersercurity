@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Software"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/references/software.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/references/software.html
 ---
 
 # Hướng Dẫn Cài Đặt Phần Mềm / Software Setup Guide

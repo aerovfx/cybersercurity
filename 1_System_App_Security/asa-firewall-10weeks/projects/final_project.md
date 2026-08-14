@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Final Project"
-permalink: /1_System_App_Security/asa-firewall-10weeks/projects/final_project.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/projects/final_project.html
 ---
 
 # Dự án cuối khóa: DHCP và tổng hợp

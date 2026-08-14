@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/cybersecurity-10weeks/exercises/week01/README.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/exercises/week01/README.html
 ---
 
 # Bài tập tuần 1: Asset inventory

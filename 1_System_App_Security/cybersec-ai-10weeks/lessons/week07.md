@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week07"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week07.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week07.html
 ---
 
 # Tuần 07: Cơ chế Mã hóa mật khẩu & Phân tích Giao thức Wi-Fi / Week 07: Password Hashing Mechanisms & Wi-Fi Protocol Security Analysis

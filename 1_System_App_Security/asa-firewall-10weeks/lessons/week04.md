@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week04"
-permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week04.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week04.html
 ---
 
 # Tuần 4: Interface, zone và routing

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week07"
-permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week07.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week07.html
 ---
 
 # Tuần 7: Nâng cấp và phục hồi hệ điều hành

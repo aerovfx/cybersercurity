@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week05"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week05.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week05.html
 ---
 
 # Giáo trình Cyber Security – Reverse Engineering

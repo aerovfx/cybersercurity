@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Schedule"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/schedule.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/schedule.html
 ---
 
 # Lịch Trình Chi Tiết 10 Tuần / 10-Week Detailed Schedule

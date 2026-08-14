@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/cybersecurity-10weeks/exercises/week04/README.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/exercises/week04/README.html
 ---
 
 # Bài tập tuần 4: Vulnerability assessment

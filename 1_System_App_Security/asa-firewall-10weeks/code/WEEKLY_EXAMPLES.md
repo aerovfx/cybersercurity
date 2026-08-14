@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Weekly Examples"
-permalink: /1_System_App_Security/asa-firewall-10weeks/code/WEEKLY_EXAMPLES.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/code/WEEKLY_EXAMPLES.html
 ---
 
 # 200 code minh họa theo 10 tuần

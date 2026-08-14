@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week03"
-permalink: /2_Cryptography/crypto-10weeks/lessons/week03.md
+permalink: /2_Cryptography/crypto-10weeks/lessons/week03.html
 ---
 
 # Tuần 3: Mã Hóa Dòng & Tính Ngẫu Nhiên Mật Mã (Stream Ciphers & CSPRNG)

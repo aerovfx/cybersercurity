@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week03"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week03.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week03.html
 ---
 
 # Tuần 3: C++ cơ bản, Con trỏ và Quản lý bộ nhớ Stack & Heap / Week 3: C++ Basics, Pointers, and Stack/Heap Memory Management

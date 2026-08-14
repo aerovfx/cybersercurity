@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Safety"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/references/safety.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/references/safety.html
 ---
 
 # Quy Định An Toàn & Đạo Đức Nghề Nghiệp / Safety & Ethical Hacking Guidelines

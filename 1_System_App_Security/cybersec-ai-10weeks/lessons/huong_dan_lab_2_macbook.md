@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Huong Dan Lab 2 Macbook"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/huong_dan_lab_2_macbook.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/huong_dan_lab_2_macbook.html
 ---
 
 # Hướng Dẫn Chạy Client/Server Trên 2 MacBook Cùng Mạng Wi-Fi

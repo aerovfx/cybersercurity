@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week03"
-permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week03.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week03.html
 ---
 
 # Tuần 3: System Hacking & Memory Security (CEH v12 Module 06 Aligned)

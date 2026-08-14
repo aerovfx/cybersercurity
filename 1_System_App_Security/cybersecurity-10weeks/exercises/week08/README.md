@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/cybersecurity-10weeks/exercises/week08/README.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/exercises/week08/README.html
 ---
 
 # Bài tập tuần 8: Crypto và Wi-Fi defense

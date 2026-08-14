@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week08"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week08.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week08.html
 ---
 
 # Tuần 08: Prompt Engineering cho AI trong OSINT & Đánh giá rủi ro / Week 08: Prompt Engineering for AI in OSINT & Risk Assessment

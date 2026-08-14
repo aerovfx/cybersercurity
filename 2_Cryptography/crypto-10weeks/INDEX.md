@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Index"
-permalink: /2_Cryptography/crypto-10weeks/INDEX.md
+permalink: /2_Cryptography/crypto-10weeks/INDEX.html
 ---
 
 # Khoá Học: Mật Mã Học Thực Chiến & Bảo Mật Dữ Liệu (10 Tuần) / Course: Applied Cryptography & Data Security (10 Weeks)

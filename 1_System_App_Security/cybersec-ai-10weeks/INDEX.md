@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Index"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/INDEX.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/INDEX.html
 ---
 
 # Cybersecurity & AI — 10 tuần

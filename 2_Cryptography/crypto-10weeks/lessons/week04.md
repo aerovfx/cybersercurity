@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week04"
-permalink: /2_Cryptography/crypto-10weeks/lessons/week04.md
+permalink: /2_Cryptography/crypto-10weeks/lessons/week04.html
 ---
 
 # Tuần 4: Hàm Băm Mật Mã & Mã Xác Thực Thông Điệp HMAC (Cryptographic Hash Functions & HMAC)

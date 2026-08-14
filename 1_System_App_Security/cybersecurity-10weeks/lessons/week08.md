@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week08"
-permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week08.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week08.html
 ---
 
 # Tuần 8: Cryptography & Wireless Network Security (CEH v12 Module 16 & 19 Aligned)

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /2_Cryptography/crypto-10weeks/code/week10/README.md
+permalink: /2_Cryptography/crypto-10weeks/code/week10/README.html
 ---
 
 # Tuần 10 — 20 code minh họa

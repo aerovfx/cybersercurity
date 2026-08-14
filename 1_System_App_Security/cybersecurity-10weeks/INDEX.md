@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Index"
-permalink: /1_System_App_Security/cybersecurity-10weeks/INDEX.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/INDEX.html
 ---
 
 # Ethical Cybersecurity — 10 tuần

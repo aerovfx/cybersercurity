@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week07"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week07.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week07.html
 ---
 
 # Tuần 7: Quy trình phân tích tái lập và báo cáo finding

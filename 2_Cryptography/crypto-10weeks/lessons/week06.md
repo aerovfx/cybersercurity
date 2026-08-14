@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week06"
-permalink: /2_Cryptography/crypto-10weeks/lessons/week06.md
+permalink: /2_Cryptography/crypto-10weeks/lessons/week06.html
 ---
 
 # Tuần 6: Đường Cong Elliptic (ECC) & Trao Đổi Khóa Diffie-Hellman (Elliptic Curve Cryptography & ECDH)

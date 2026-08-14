@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week08"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week08.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week08.html
 ---
 
 # Tuần 8: Phân tích ứng dụng GUI và event-driven flow

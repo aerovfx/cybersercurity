@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Components"
-permalink: /1_System_App_Security/cybersecurity-10weeks/references/components.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/references/components.html
 ---
 
 # Hướng Dẫn Linh Kiện & Dụng Cụ Phòng Lab / Lab Components & Hardware Guide

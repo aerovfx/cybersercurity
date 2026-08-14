@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week01"
-permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week01.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week01.html
 ---
 
 # Tuần 1: Footprinting, Reconnaissance & Lập trình Socket Python (CEH v12 Module 01-02 Aligned)

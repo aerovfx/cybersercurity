@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Components"
-permalink: /2_Cryptography/crypto-10weeks/references/components.md
+permalink: /2_Cryptography/crypto-10weeks/references/components.html
 ---
 
 # Hướng Dẫn Linh Kiện & Dụng Cụ Mã Hóa / Cryptography Lab Tools & Hardware Guide

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Final Project"
-permalink: /2_Cryptography/crypto-10weeks/projects/final_project.md
+permalink: /2_Cryptography/crypto-10weeks/projects/final_project.html
 ---
 
 # Hướng Dẫn Dự Án Tốt Nghiệp Capstone Mật Mã Học / Final Capstone Project Guide

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Schedule"
-permalink: /1_System_App_Security/cybersecurity-10weeks/schedule.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/schedule.html
 ---
 
 # Lịch Trình Chi Tiết 10 Tuần (CEH v12 & CompTIA Security+ Aligned)

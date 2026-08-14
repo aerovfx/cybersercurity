@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/exercises/week02/README.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/exercises/week02/README.html
 ---
 
 # Bài tập tuần 2: Static triage

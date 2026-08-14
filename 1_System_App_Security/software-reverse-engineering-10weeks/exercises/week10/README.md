@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/exercises/week10/README.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/exercises/week10/README.html
 ---
 
 # Bài tập tuần 10: Integrity và anti-tamper

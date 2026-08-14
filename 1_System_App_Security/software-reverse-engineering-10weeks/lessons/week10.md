@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week10"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week10.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week10.html
 ---
 
 # Tuần 10: License integrity, anti-tamper và capstone

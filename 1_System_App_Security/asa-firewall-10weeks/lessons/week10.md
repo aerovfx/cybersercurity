@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week10"
-permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week10.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week10.html
 ---
 
 # Tuần 10: DHCP và đồ án tổng hợp

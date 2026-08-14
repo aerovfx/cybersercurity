@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/asa-firewall-10weeks/exercises/week07/README.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/exercises/week07/README.html
 ---
 
 # Bài tập tuần 7: Upgrade/rollback

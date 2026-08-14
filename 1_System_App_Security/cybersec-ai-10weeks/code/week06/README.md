@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/code/week06/README.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/code/week06/README.html
 ---
 
 # Tuần 06 — 20 code minh họa

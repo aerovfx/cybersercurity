@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week01"
-permalink: /2_Cryptography/crypto-10weeks/lessons/week01.md
+permalink: /2_Cryptography/crypto-10weeks/lessons/week01.html
 ---
 
 # Tuần 1: Mật Mã Cổ Điển & Phân Tích Tần Suất / Week 1: Classical Cryptography & Frequency Analysis

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Index"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/INDEX.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/INDEX.html
 ---
 
 # Software Reverse Engineering — 10 tuần

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/code/week02/README.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/code/week02/README.html
 ---
 
 # Tuần 02 — 20 code minh họa

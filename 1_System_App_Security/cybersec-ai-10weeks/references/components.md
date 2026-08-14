@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Components"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/references/components.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/references/components.html
 ---
 
 # Hướng Dẫn Mua Sắm Thiết Bị Phòng Lab / Hardware Shopping & Lab Setup Guide

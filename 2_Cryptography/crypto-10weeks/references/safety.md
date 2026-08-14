@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Safety"
-permalink: /2_Cryptography/crypto-10weeks/references/safety.md
+permalink: /2_Cryptography/crypto-10weeks/references/safety.html
 ---
 
 # Quy Định An Toàn Mật Mã & Quản Lý Khóa / Cryptographic Safety & Key Management Rules

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week09"
-permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week09.md
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week09.html
 ---
 
 # Tuần 9: PE GUI, imports, resources và build hardening

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Safety"
-permalink: /1_System_App_Security/cybersecurity-10weeks/references/safety.md
+permalink: /1_System_App_Security/cybersecurity-10weeks/references/safety.html
 ---
 
 # Quy Định An Toàn, Pháp Lý & Đạo Đức Pentesting (CEH Code of Ethics)

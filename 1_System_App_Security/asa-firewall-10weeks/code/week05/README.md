@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Readme"
-permalink: /1_System_App_Security/asa-firewall-10weeks/code/week05/README.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/code/week05/README.html
 ---
 
 # Tuần 05 — 20 code minh họa

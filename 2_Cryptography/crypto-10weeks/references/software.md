@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Software"
-permalink: /2_Cryptography/crypto-10weeks/references/software.md
+permalink: /2_Cryptography/crypto-10weeks/references/software.html
 ---
 
 # Hướng Dẫn Cài Đặt Phần Mềm Mật Mã / Cryptography Software Setup Guide

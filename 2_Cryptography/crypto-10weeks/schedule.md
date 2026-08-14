@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Schedule"
-permalink: /2_Cryptography/crypto-10weeks/schedule.md
+permalink: /2_Cryptography/crypto-10weeks/schedule.html
 ---
 
 # Lịch Trình Chi Tiết 10 Tuần (Mật Mã Học Thực Chiến)

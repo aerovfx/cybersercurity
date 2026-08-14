@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Index"
-permalink: /1_System_App_Security/asa-firewall-10weeks/INDEX.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/INDEX.html
 ---
 
 # Cisco ASA Firewall — 10 tuần

@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Schedule"
-permalink: /1_System_App_Security/asa-firewall-10weeks/schedule.md
+permalink: /1_System_App_Security/asa-firewall-10weeks/schedule.html
 ---
 
 # Lịch trình Cisco ASA Firewall Administration

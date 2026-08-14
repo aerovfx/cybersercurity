@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Week10"
-permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week10.md
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week10.html
 ---
 
 # Tuần 10: Phát triển các Công cụ tự động hóa bảo mật tích hợp AI / Week 10: Developing AI-integrated Security Automation Tools
