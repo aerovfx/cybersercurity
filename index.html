@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="classroom.css">
 </head>
 <body>
   <a class="skip-link" href="#courses">Bỏ qua tới nội dung</a>
@@ -20,6 +21,7 @@
     </a>
     <nav aria-label="Điều hướng chính">
       <a href="#courses">Lộ trình</a>
+      <a href="#classroom">Lớp học</a>
       <a href="#method">Phương pháp</a>
       <a href="#safety">An toàn</a>
     </nav>
@@ -143,6 +145,21 @@
         </article>
       </div>
       <p class="empty-state" id="empty-state" hidden>Không tìm thấy lộ trình phù hợp.</p>
+    </section>
+
+    <section class="classroom section" id="classroom" aria-labelledby="classroom-title">
+      <div class="section-heading">
+        <div><p class="eyebrow"><span></span> Classroom operations</p><h2 id="classroom-title">Học · Review · Tiến bộ</h2></div>
+        <p>Một quy trình khép kín cho học viên và giáo viên, chạy trực tiếp trên GitHub Pages và lưu cục bộ theo mặc định.</p>
+      </div>
+      <div class="classroom-grid">
+        <a class="classroom-card classroom-primary" href="tools/khao-sat/portal.html"><span class="classroom-no">01</span><i>◎</i><h3>Cổng lớp học</h3><p>Chọn khóa, buổi học và hồ sơ học viên trước khi bắt đầu đánh giá.</p><b>Vào classroom <span>→</span></b></a>
+        <a class="classroom-card" href="tools/khao-sat/index.html"><span class="classroom-no">02</span><i>▤</i><h3>Khảo sát học viên</h3><p>Thu phản hồi trải nghiệm, độ khó, kỹ năng đạt được và đề xuất cải thiện.</p><b>Mở khảo sát <span>→</span></b></a>
+        <a class="classroom-card" href="tools/khao-sat/danh-gia.html"><span class="classroom-no">03</span><i>◇</i><h3>Đánh giá đồng đẳng</h3><p>Học viên review lẫn nhau theo sáu tiêu chí bảo mật và năng lực cộng tác.</p><b>Bắt đầu review <span>→</span></b></a>
+        <a class="classroom-card" href="tools/khao-sat/admin.html"><span class="classroom-no">04</span><i>⚙</i><h3>Chấm điểm giáo viên</h3><p>Chấm rubric 1–5, ghi nhận xét, xem hồ sơ và xuất báo cáo CSV hoặc JSON.</p><b>Mở quản lý <span>→</span></b></a>
+        <a class="classroom-card classroom-wide" href="tools/khao-sat/ket-qua.html"><span class="classroom-no">05</span><i>▥</i><h3>Dashboard kết quả</h3><p>Tổng hợp khảo sát, đánh giá đồng đẳng và điểm giáo viên trong một màn hình.</p><b>Xem dashboard <span>→</span></b></a>
+      </div>
+      <div class="classroom-note"><span>LOCAL-FIRST</span><p>Dữ liệu mặc định không rời khỏi trình duyệt. Giáo viên có thể chủ động kết nối Google Sheets của mình tại trang <a href="tools/khao-sat/ket-noi.html">Kết nối dữ liệu →</a></p></div>
     </section>
 
     <section class="method section" id="method">

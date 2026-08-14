@@ -4,6 +4,8 @@
 .source-link span { color: var(--pink); }
 .source-link:hover { color: #001012; background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 14px rgba(49,247,255,.2); }
 .source-link:hover span { color: #001012; }
+.classroom-link { display: inline-flex; align-items: center; gap: .45rem; padding: .48rem .7rem; background: var(--acid); color: #061000; font: 700 .58rem var(--mono); letter-spacing: .08em; clip-path: polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px); }
+.classroom-link:hover { box-shadow: 0 0 16px rgba(198,255,0,.25); }
 .course-main { max-width: 940px; }
 .doc-status { margin-bottom: 1rem; }
 .resource-nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 0 0 2.4rem; }
@@ -20,4 +22,5 @@
 .doc-section::before { content: ""; position: absolute; left: 12px; top: 0; width: 42px; height: 1px; background: var(--pink); box-shadow: 0 0 8px var(--pink); }
 .markdown-body .doc-section h2 { font-size: clamp(1.45rem,3vw,2.15rem); margin: 0 0 1.2rem; }
 @media (max-width:800px) { .resource-nav { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:620px) { .classroom-link { font-size: 0; } .classroom-link span { font-size: .72rem; } }
 @media (max-width:520px) { .resource-nav a { padding: .65rem .55rem; } .doc-hero,.doc-section { clip-path: none; } .header-actions { gap: .4rem; } .source-link { padding: .45rem .55rem; } }
