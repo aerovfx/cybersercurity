@@ -139,6 +139,11 @@ if (firstSection > 0) {
   const toolbar = document.createElement('div');
   toolbar.className = 'code-toolbar';
 
+  const windowControls = document.createElement('span');
+  windowControls.className = 'code-window-controls';
+  windowControls.setAttribute('aria-hidden', 'true');
+  windowControls.innerHTML = '<i></i><i></i><i></i>';
+
   const meta = document.createElement('div');
   meta.className = 'code-meta';
   const titleGroup = document.createElement('div');
@@ -170,9 +175,20 @@ if (firstSection > 0) {
     }, 1600);
   });
 
-  toolbar.append(meta, copyButton);
+  const codeBody = document.createElement('div');
+  codeBody.className = 'code-body';
+  const lineNumbers = document.createElement('ol');
+  lineNumbers.className = 'code-line-numbers';
+  lineNumbers.setAttribute('aria-hidden', 'true');
+  const lineCount = code.textContent.replace(/\n$/, '').split('\n').length;
+  for (let line = 1; line <= lineCount; line += 1) {
+    lineNumbers.appendChild(document.createElement('li'));
+  }
+
+  toolbar.append(windowControls, meta, copyButton);
   pre.parentNode.insertBefore(frame, pre);
-  frame.append(toolbar, pre);
+  codeBody.append(lineNumbers, pre);
+  frame.append(toolbar, codeBody);
 });
 
 document.querySelector('#copy-link').addEventListener('click', async (event) => {
