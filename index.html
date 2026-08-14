@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CyberLearn — lộ trình học an toàn thông tin thực chiến bằng tiếng Việt.">
+  <meta name="theme-color" content="#07110f">
+  <title>CyberLearn — Học an toàn thông tin có lộ trình</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#courses">Bỏ qua tới nội dung</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="CyberLearn, trang chủ">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span>CYBER<span>LEARN</span></span>
+    </a>
+    <nav aria-label="Điều hướng chính">
+      <a href="#courses">Lộ trình</a>
+      <a href="#method">Phương pháp</a>
+      <a href="#safety">An toàn</a>
+    </nav>
+    <a class="header-cta" href="#courses">Bắt đầu học <span aria-hidden="true">↗</span></a>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> Nền tảng học tập mở · Tiếng Việt</p>
+        <h1 id="hero-title">Hiểu hệ thống.<br><em>Làm chủ bảo mật.</em></h1>
+        <p class="hero-lede">Lộ trình thực chiến từ nền tảng đến chuyên sâu. Học qua lab có kiểm soát, viết code, phân tích hệ thống và xây dựng tư duy phòng thủ đúng chuẩn.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#courses">Khám phá lộ trình <span aria-hidden="true">→</span></a>
+          <a class="button button-ghost" href="https://github.com/aerovfx/cybersercurity" target="_blank" rel="noreferrer">Xem mã nguồn <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="trust-row" aria-label="Thông tin khóa học">
+          <div><strong>05</strong><span>lộ trình</span></div>
+          <div><strong>50</strong><span>tuần học</span></div>
+          <div><strong>100+</strong><span>bài thực hành</span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-label="Minh họa terminal bảo mật">
+        <div class="radar">
+          <span class="orbit orbit-a"></span><span class="orbit orbit-b"></span>
+          <span class="radar-dot dot-a"></span><span class="radar-dot dot-b"></span><span class="radar-dot dot-c"></span>
+          <div class="shield" aria-hidden="true">
+            <svg viewBox="0 0 64 72" fill="none"><path d="M32 3 57 13v19c0 17-10.7 29.6-25 36C17.7 61.6 7 49 7 32V13L32 3Z" stroke="currentColor" stroke-width="2"/><path d="m21 35 7 7 15-17" stroke="currentColor" stroke-width="3"/></svg>
+          </div>
+        </div>
+        <div class="terminal-card">
+          <div class="terminal-top"><i></i><i></i><i></i><span>learning_session.sh</span></div>
+          <code><span class="muted">$</span> ./start_learning<br><span class="green">✓</span> lab_environment: safe<br><span class="green">✓</span> roadmap: initialized<br><span class="muted">→</span> next_module: <b>cryptography</b><br><span class="cursor">▋</span></code>
+        </div>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="Chủ đề nổi bật">
+      <div>NETWORK SECURITY <b>✦</b> CRYPTOGRAPHY <b>✦</b> REVERSE ENGINEERING <b>✦</b> AI SECURITY <b>✦</b> FIREWALL <b>✦</b> ETHICAL HACKING</div>
+    </section>
+
+    <section class="courses section" id="courses" aria-labelledby="courses-title">
+      <div class="section-heading">
+        <div><p class="eyebrow"><span></span> Chọn hướng đi</p><h2 id="courses-title">Lộ trình dành cho bạn</h2></div>
+        <p>Mỗi lộ trình gồm 10 tuần, kết hợp lý thuyết cô đọng, lab có hướng dẫn và dự án cuối khóa.</p>
+      </div>
+      <div class="course-tools">
+        <label class="search"><span aria-hidden="true">⌕</span><span class="sr-only">Tìm khóa học</span><input id="course-search" type="search" placeholder="Tìm theo tên hoặc kỹ năng…"></label>
+        <div class="filters" role="group" aria-label="Lọc khóa học">
+          <button class="active" data-filter="all">Tất cả</button>
+          <button data-filter="foundation">Nền tảng</button>
+          <button data-filter="advanced">Chuyên sâu</button>
+        </div>
+      </div>
+      <div class="course-grid" id="course-grid">
+        <article class="course-card featured" data-level="foundation" data-search="ethical cybersecurity an toàn thông tin soc assessment python">
+          <div class="card-top"><span class="course-index">01</span><span class="badge">Nên bắt đầu</span></div>
+          <div class="course-icon">⌁</div><p class="course-meta">Nền tảng · 10 tuần</p>
+          <h3>Ethical Cybersecurity</h3><p>Đi từ kiểm kê tài sản, đánh giá bảo mật đến vận hành SOC và viết báo cáo có bằng chứng.</p>
+          <div class="tags"><span>Python</span><span>SOC</span><span>Assessment</span></div>
+          <a href="1_System_App_Security/cybersecurity-10weeks/INDEX.md">Xem lộ trình <span>→</span></a>
+        </article>
+        <article class="course-card" data-level="advanced" data-search="cryptography mật mã aes rsa ecc pki tls e2ee python">
+          <div class="card-top"><span class="course-index">02</span><span class="badge badge-dark">Thực chiến</span></div>
+          <div class="course-icon">◇</div><p class="course-meta">Chuyên sâu · 10 tuần</p>
+          <h3>Mật mã học ứng dụng</h3><p>Làm chủ AES, RSA, ECC, PKI/TLS và tự xây dựng ứng dụng nhắn tin mã hóa đầu cuối.</p>
+          <div class="tags"><span>AES</span><span>PKI</span><span>E2EE</span></div>
+          <a href="2_Cryptography/crypto-10weeks/INDEX.md">Xem lộ trình <span>→</span></a>
+        </article>
+        <article class="course-card" data-level="advanced" data-search="reverse engineering dịch ngược binary x64dbg static dynamic patching">
+          <div class="card-top"><span class="course-index">03</span><span class="badge badge-dark">Lab offline</span></div>
+          <div class="course-icon">⌬</div><p class="course-meta">Chuyên sâu · 10 tuần</p>
+          <h3>Reverse Engineering</h3><p>Triage, phân tích tĩnh và động, đọc binary lab tự biên dịch và thực hành secure patching.</p>
+          <div class="tags"><span>Binary</span><span>x64dbg</span><span>Patching</span></div>
+          <a href="1_System_App_Security/software-reverse-engineering-10weeks/INDEX.md">Xem lộ trình <span>→</span></a>
+        </article>
+        <article class="course-card" data-level="advanced" data-search="cybersecurity ai trí tuệ nhân tạo traffic log triage python cpp">
+          <div class="card-top"><span class="course-index">04</span><span class="badge badge-dark">AI-assisted</span></div>
+          <div class="course-icon">✣</div><p class="course-meta">Chuyên sâu · 10 tuần</p>
+          <h3>Cybersecurity & AI</h3><p>Phân tích traffic, log và ứng dụng AI có kiểm chứng để hỗ trợ quy trình điều tra, phân loại.</p>
+          <div class="tags"><span>AI</span><span>Traffic</span><span>Triage</span></div>
+          <a href="1_System_App_Security/cybersec-ai-10weeks/INDEX.md">Xem lộ trình <span>→</span></a>
+        </article>
+        <article class="course-card" data-level="foundation" data-search="cisco asa firewall network zone dhcp backup cấu hình">
+          <div class="card-top"><span class="course-index">05</span><span class="badge badge-dark">Networking</span></div>
+          <div class="course-icon">▦</div><p class="course-meta">Nền tảng · 10 tuần</p>
+          <h3>Cisco ASA Firewall</h3><p>Cấu hình firewall theo zone, quản trị an toàn, backup, upgrade và DHCP trong lab kiểm soát.</p>
+          <div class="tags"><span>ASA</span><span>Firewall</span><span>Network</span></div>
+          <a href="1_System_App_Security/asa-firewall-10weeks/INDEX.md">Xem lộ trình <span>→</span></a>
+        </article>
+      </div>
+      <p class="empty-state" id="empty-state" hidden>Không tìm thấy lộ trình phù hợp.</p>
+    </section>
+
+    <section class="method section" id="method">
+      <div class="method-intro"><p class="eyebrow"><span></span> Học để làm được</p><h2>Một quy trình.<br>Tiến bộ mỗi tuần.</h2><p>Không chỉ đọc lý thuyết. Bạn sẽ quan sát, thực hành trong môi trường an toàn và ghi lại bằng chứng sau mỗi bài học.</p></div>
+      <ol class="steps">
+        <li><span>01</span><div><h3>Hiểu nền tảng</h3><p>Nắm khái niệm cốt lõi và mô hình đe dọa trước khi chạm vào công cụ.</p></div></li>
+        <li><span>02</span><div><h3>Thực hành có kiểm soát</h3><p>Lab offline, read-only hoặc dry-run với mục tiêu và phạm vi rõ ràng.</p></div></li>
+        <li><span>03</span><div><h3>Tạo sản phẩm thật</h3><p>Code, cấu hình, báo cáo và capstone có thể đưa thẳng vào portfolio.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="safety section" id="safety">
+      <div class="safety-mark" aria-hidden="true">✓</div>
+      <div><p class="eyebrow light">Nguyên tắc xuyên suốt</p><h2>Học bảo mật.<br><em>Luôn có trách nhiệm.</em></h2></div>
+      <p>Mọi bài thực hành chỉ dành cho hệ thống bạn sở hữu hoặc được ủy quyền bằng văn bản. Luôn đặt Rules of Engagement, bảo vệ dữ liệu cá nhân và chuẩn bị phương án rollback.</p>
+      <a href="2_Cryptography/crypto-10weeks/references/safety.md">Đọc nguyên tắc an toàn <span>→</span></a>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand footer-brand" href="#top"><span class="brand-mark">C</span><span>CYBER<span>LEARN</span></span></a>
+    <p>Tài nguyên học an toàn thông tin mở · Xây dựng để học, chia sẻ để cùng tiến bộ.</p>
+    <p class="copyright">© <span id="year"></span> CyberLearn</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
