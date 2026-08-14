@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week02"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week02.md
+---
+
 # Tuần 2: Trinh sát Mạng & Kỹ thuật Quét Cổng (Network Reconnaissance & Port Scanning)
 
 ## Mục Tiêu / Objectives

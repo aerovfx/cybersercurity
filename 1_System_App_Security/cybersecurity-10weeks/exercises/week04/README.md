@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /1_System_App_Security/cybersecurity-10weeks/exercises/week04/README.md
+---
+
 # Bài tập tuần 4: Vulnerability assessment
 
 Hoàn thiện `starter.py` trên dữ liệu giả hoặc hệ thống lab thuộc quyền kiểm soát. Nộp scope/Rules of Engagement trước khi thực hành.

@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/code/README.md
+---
+
 # Code minh họa — Cybersecurity & AI
 
 Mỗi tuần có một thư mục riêng gồm 20 ví dụ, đánh số lại từ `01` đến `20`. Mỗi buổi học có thể chọn các ví dụ phù hợp với tốc độ của lớp.

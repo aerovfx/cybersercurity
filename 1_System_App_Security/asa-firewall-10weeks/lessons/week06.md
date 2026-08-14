@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week06"
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week06.md
+---
+
 # Tuần 6: Backup, restore và bảo vệ cấu hình
 
 ## Mục tiêu

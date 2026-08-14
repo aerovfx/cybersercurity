@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week08"
+permalink: /2_Cryptography/crypto-10weeks/lessons/week08.md
+---
+
 # Tuần 8: Băm Mật Khẩu & Các Hàm Dẫn Xuất Khóa KDFs (Password Hashing & Key Derivation Functions)
 
 ## Mục Tiêu / Objectives

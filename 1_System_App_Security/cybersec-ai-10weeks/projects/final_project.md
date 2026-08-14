@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Final Project"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/projects/final_project.md
+---
+
 # Hướng Dẫn Dự Án Cuối Khoá / Final Capstone Project Guide
 
 Dự án tốt nghiệp cuối khoá chiếm 40% trọng số điểm đánh giá toàn khóa. Học viên chọn một trong ba hướng đề tài (Tracks) dưới đây để triển khai và bảo vệ trong ngày Demo Day.

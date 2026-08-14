@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Source Map"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/references/source-map.md
+---
+
 # Ánh xạ tài liệu từ thư mục docs
 
 Các tài liệu nguồn đã được biên tập theo hướng phòng thủ, chỉ dùng artifact do lớp tự viết hoặc được phép phân tích.

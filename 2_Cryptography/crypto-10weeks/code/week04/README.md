@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /2_Cryptography/crypto-10weeks/code/week04/README.md
+---
+
 # Tuần 04 — 20 code minh họa
 
 Học và chạy theo thứ tự:

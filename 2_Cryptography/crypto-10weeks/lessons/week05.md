@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week05"
+permalink: /2_Cryptography/crypto-10weeks/lessons/week05.md
+---
+
 # Tuần 5: Lý Thuyết Số & Mã Hóa Bất Đối Xứng RSA (Number Theory & RSA Cryptography)
 
 ## Mục Tiêu / Objectives

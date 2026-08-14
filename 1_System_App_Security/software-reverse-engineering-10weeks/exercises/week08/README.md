@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/exercises/week08/README.md
+---
+
 # Bài tập tuần 8: Event-driven flow
 
 Hoàn thiện `starter.py` trên dữ liệu giả hoặc hệ thống lab thuộc quyền kiểm soát. Nộp scope/Rules of Engagement trước khi thực hành.

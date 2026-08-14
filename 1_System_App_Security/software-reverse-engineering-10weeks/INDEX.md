@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Index"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/INDEX.md
+---
+
 # Software Reverse Engineering — 10 tuần
 
 Triage, phân tích tĩnh/động và secure patching trên binary lab tự biên dịch.

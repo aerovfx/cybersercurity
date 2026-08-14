@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week07"
+permalink: /2_Cryptography/crypto-10weeks/lessons/week07.md
+---
+
 # Tuần 7: Chữ Ký Số, Hạ Tầng Khóa Công Khai PKI & Bắt Tay TLS/SSL (Digital Signatures, PKI & TLS)
 
 ## Mục Tiêu / Objectives

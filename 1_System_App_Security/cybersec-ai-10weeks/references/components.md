@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Components"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/references/components.md
+---
+
 # Hướng Dẫn Mua Sắm Thiết Bị Phòng Lab / Hardware Shopping & Lab Setup Guide
 
 Để phục vụ tốt nhất cho các nội dung thực hành mạng cấp thấp và kiểm thử mạng không dây (Wi-Fi Pentesting), dưới đây là chi tiết các thiết bị và linh kiện bạn cần chuẩn bị.

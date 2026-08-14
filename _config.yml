@@ -1,0 +1,14 @@
+title: CyberLearn
+description: Lộ trình học an toàn thông tin thực chiến bằng tiếng Việt
+url: https://aerovfx.github.io
+baseurl: /cybersercurity
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  hard_wrap: false
+encoding: utf-8
+exclude:
+  - .git
+  - .github
+

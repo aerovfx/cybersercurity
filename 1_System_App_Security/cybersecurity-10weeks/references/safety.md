@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Safety"
+permalink: /1_System_App_Security/cybersecurity-10weeks/references/safety.md
+---
+
 # Quy Định An Toàn, Pháp Lý & Đạo Đức Pentesting (CEH Code of Ethics)
 
 An ninh mạng là một lĩnh vực có tính chất nhạy cảm. Học viên bắt buộc phải tuân thủ nghiêm ngặt **Quy tắc Đạo đức CEH (CEH Code of Ethics)** và các quy định an toàn thông tin dưới đây trong suốt quá trình học tập.

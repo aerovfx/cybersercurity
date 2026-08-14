@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Index"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/INDEX.md
+---
+
 # Cybersecurity & AI — 10 tuần
 
 Python/C++ security foundations, phân tích traffic/log và hỗ trợ triage bằng AI có kiểm chứng.

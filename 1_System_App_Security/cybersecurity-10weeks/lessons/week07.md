@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week07"
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week07.md
+---
+
 # Tuần 7: Hacking Web Applications & OWASP Top 10 Audit (CEH v12 Module 14 Aligned)
 
 ## Mục Tiêu / Objectives (CEH v12 Aligned)

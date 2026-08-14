@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week02"
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week02.md
+---
+
 # Tuần 2: Scanning Networks & Kỹ thuật Quét Cổng (CEH v12 Module 03 Aligned)
 
 ## Mục Tiêu / Objectives (CEH v12 Aligned)

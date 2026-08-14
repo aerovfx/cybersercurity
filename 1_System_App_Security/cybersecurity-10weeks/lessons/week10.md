@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week10"
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week10.md
+---
+
 # Tuần 10: Penetration Testing, SOC Operations & Capstone Project (CEH v12 Module 20 Aligned)
 
 ## Mục Tiêu / Objectives (CEH v12 Aligned)

@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week06"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week06.md
+---
+
 # Tuần 06: Phân tích lưu lượng mạng và phát hiện bất thường với Wireshark / Week 06: Network Traffic Analysis & Threat Detection with Wireshark
 
 ## Mục Tiêu / Objectives

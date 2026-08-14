@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Reporting And Writing"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/references/reporting-and-writing.md
+---
+
 # Viết mã, công thức và báo cáo bảo mật
 
 ## Clean Code cho công cụ phân tích

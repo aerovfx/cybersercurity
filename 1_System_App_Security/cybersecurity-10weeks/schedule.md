@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Schedule"
+permalink: /1_System_App_Security/cybersecurity-10weeks/schedule.md
+---
+
 # Lịch Trình Chi Tiết 10 Tuần (CEH v12 & CompTIA Security+ Aligned)
 
 Chương trình học gồm 20 buổi (mỗi tuần 2 buổi, mỗi buổi 2.5 giờ).

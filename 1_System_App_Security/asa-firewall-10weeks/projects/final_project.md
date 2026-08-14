@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Final Project"
+permalink: /1_System_App_Security/asa-firewall-10weeks/projects/final_project.md
+---
+
 # Dự án cuối khóa: DHCP và tổng hợp
 
 Xây một quy trình phòng thủ hoàn chỉnh trong lab cô lập: xác định phạm vi, thu thập bằng chứng, phát hiện, giảm thiểu, kiểm thử hồi quy và viết báo cáo.

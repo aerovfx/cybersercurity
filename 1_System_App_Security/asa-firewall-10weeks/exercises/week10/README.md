@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /1_System_App_Security/asa-firewall-10weeks/exercises/week10/README.md
+---
+
 # Bài tập tuần 10: DHCP và tổng hợp
 
 Hoàn thiện `starter.ios` trên dữ liệu giả hoặc hệ thống lab thuộc quyền kiểm soát. Nộp scope/Rules of Engagement trước khi thực hành.

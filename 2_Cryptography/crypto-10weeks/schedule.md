@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Schedule"
+permalink: /2_Cryptography/crypto-10weeks/schedule.md
+---
+
 # Lịch Trình Chi Tiết 10 Tuần (Mật Mã Học Thực Chiến)
 
 Chương trình học gồm 20 buổi (mỗi tuần 2 buổi, mỗi buổi 2.5 giờ).

@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Software"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/references/software.md
+---
+
 # Hướng Dẫn Cài Đặt Phần Mềm / Software Setup Guide
 
 Khoá học này yêu cầu một số phần mềm chuyên dụng cho cả lập trình, phân tích mạng và chạy mô hình AI. Dưới đây là hướng dẫn cài đặt từng bước cho hệ thống của bạn.

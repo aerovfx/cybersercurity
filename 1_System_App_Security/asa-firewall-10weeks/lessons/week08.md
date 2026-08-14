@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week08"
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week08.md
+---
+
 # Tuần 8: Quản trị từ xa an toàn
 
 ## Mục tiêu

@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Index"
+permalink: /1_System_App_Security/cybersecurity-10weeks/INDEX.md
+---
+
 # Ethical Cybersecurity — 10 tuần
 
 Quy trình đánh giá bảo mật có ủy quyền từ inventory, assessment đến SOC và báo cáo.

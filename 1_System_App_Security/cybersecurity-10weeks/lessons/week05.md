@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week05"
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week05.md
+---
+
 # Tuần 5: Sniffing & Traffic Analysis với Wireshark (CEH v12 Module 08 Aligned)
 
 ## Mục Tiêu / Objectives (CEH v12 Aligned)

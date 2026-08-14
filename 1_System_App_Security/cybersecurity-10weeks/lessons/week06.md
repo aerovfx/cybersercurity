@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week06"
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week06.md
+---
+
 # Tuần 6: Social Engineering & Phishing Header Analysis (CEH v12 Module 09 Aligned)
 
 ## Mục Tiêu / Objectives (CEH v12 Aligned)

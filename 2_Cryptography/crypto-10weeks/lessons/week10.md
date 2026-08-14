@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week10"
+permalink: /2_Cryptography/crypto-10weeks/lessons/week10.md
+---
+
 # Tuần 10: Xây Dựng Ứng Dụng Mã Hóa Đầu-Cuối (E2EE System Architecture & Capstone Project)
 
 ## Mục Tiêu / Objectives

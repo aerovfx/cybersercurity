@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week05"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week05.md
+---
+
 # Tuần 5: Giám sát mạng nội bộ với Kali Linux & Nmap / Week 5: Local Network Auditing with Kali Linux & Nmap
 
 ## Mục Tiêu / Objectives

@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week06"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week06.md
+---
+
 # Tuần 6: Secure patching, regression và rollback
 
 > Secure patch phải tuân theo các nguyên tắc Clean Code và test được

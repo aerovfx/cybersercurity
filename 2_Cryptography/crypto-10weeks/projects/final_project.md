@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Final Project"
+permalink: /2_Cryptography/crypto-10weeks/projects/final_project.md
+---
+
 # Hướng Dẫn Dự Án Tốt Nghiệp Capstone Mật Mã Học / Final Capstone Project Guide
 
 Dự án tốt nghiệp chiếm **40% tổng số điểm** đánh giá toàn khóa. Học viên chọn 1 trong 3 đề tài (Tracks) dưới đây.

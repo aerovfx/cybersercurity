@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /1_System_App_Security/asa-firewall-10weeks/exercises/week05/README.md
+---
+
 # Bài tập tuần 5: Change management
 
 Hoàn thiện `starter.ios` trên dữ liệu giả hoặc hệ thống lab thuộc quyền kiểm soát. Nộp scope/Rules of Engagement trước khi thực hành.

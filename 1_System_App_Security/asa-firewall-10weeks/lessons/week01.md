@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week01"
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week01.md
+---
+
 # Tuần 1: Tổng quan firewall và mô hình phòng thủ
 
 ## Mục tiêu

@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week03"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week03.md
+---
+
 # Giáo trình Cyber Security – Reverse Engineering
 
 > Khi mô tả FLAGS và control flow, áp dụng quy ước tại

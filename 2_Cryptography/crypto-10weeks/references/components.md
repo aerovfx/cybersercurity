@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Components"
+permalink: /2_Cryptography/crypto-10weeks/references/components.md
+---
+
 # Hướng Dẫn Linh Kiện & Dụng Cụ Mã Hóa / Cryptography Lab Tools & Hardware Guide
 
 Để thực hành đầy đủ các phần của khóa học Mật mã học (đặc biệt là lưu trữ khóa riêng tư cứng, thẻ thông minh và mã hóa phần cứng), học viên nên tự trang bị phòng lab mini với các thiết bị sau:

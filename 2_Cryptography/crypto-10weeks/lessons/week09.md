@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week09"
+permalink: /2_Cryptography/crypto-10weeks/lessons/week09.md
+---
+
 # Tuần 9: Mật Mã Nâng Cao, Bằng Chứng Không Tiết Lộ & Mật Mã Hậu Lượng Tử (Advanced Crypto, ZKP & PQC)
 
 ## Mục Tiêu / Objectives

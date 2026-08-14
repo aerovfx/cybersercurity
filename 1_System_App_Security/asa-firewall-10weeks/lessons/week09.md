@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week09"
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week09.md
+---
+
 # Tuần 9: Quản trị bằng ASDM
 
 ## Mục tiêu

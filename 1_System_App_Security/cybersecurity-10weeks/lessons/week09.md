@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week09"
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week09.md
+---
+
 # Tuần 9: Cloud & AI Security Auditing (CEH v12 Module 17 & AI Aligned)
 
 ## 1. Mục Tiêu / Objectives (CEH v12 Aligned)

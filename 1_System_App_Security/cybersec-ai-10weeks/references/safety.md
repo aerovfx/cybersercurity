@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Safety"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/references/safety.md
+---
+
 # Quy Định An Toàn & Đạo Đức Nghề Nghiệp / Safety & Ethical Hacking Guidelines
 
 An ninh mạng là một lĩnh vực đầy thách thức nhưng cũng đi kèm với trách nhiệm pháp lý và đạo đức to lớn. Mọi kỹ thuật bạn học được trong khoá học này chỉ được phép sử dụng cho mục đích học tập, nghiên cứu và phòng thủ hợp pháp.

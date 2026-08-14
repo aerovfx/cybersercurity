@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Safety"
+permalink: /2_Cryptography/crypto-10weeks/references/safety.md
+---
+
 # Quy Định An Toàn Mật Mã & Quản Lý Khóa / Cryptographic Safety & Key Management Rules
 
 Mật mã học là lá chắn bảo vệ dữ liệu nhạy cảm. Việc áp dụng sai thuật toán hoặc quản lý khóa bất cẩn có thể dẫn đến rò rỉ thông tin nghiêm trọng.

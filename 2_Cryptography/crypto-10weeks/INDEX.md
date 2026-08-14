@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Index"
+permalink: /2_Cryptography/crypto-10weeks/INDEX.md
+---
+
 # Khoá Học: Mật Mã Học Thực Chiến & Bảo Mật Dữ Liệu (10 Tuần) / Course: Applied Cryptography & Data Security (10 Weeks)
 
 Chào mừng bạn đến với khoá học **Mật Mã Học Thực Chiến & Bảo Mật Dữ Liệu (10 Tuần)**. Chương trình đào tạo chuẩn STEM được thiết kế nhằm trang bị cho học viên nền tảng toán học mật mã vững chắc, các thuật toán mã hóa hiện đại (AES, RSA, ECC), hạ tầng khóa công khai PKI/TLS, và kỹ năng lập trình phần mềm mã hóa đầu-cuối (E2EE) bằng Python và C++.

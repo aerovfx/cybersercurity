@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Components"
+permalink: /1_System_App_Security/cybersecurity-10weeks/references/components.md
+---
+
 # Hướng Dẫn Linh Kiện & Dụng Cụ Phòng Lab / Lab Components & Hardware Guide
 
 Để phục vụ tốt nhất cho các bài thực hành kiểm toán an ninh mạng, học viên cần chuẩn bị trang thiết bị phòng lab theo danh mục dưới đây:

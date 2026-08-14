@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week02"
+permalink: /2_Cryptography/crypto-10weeks/lessons/week02.md
+---
+
 # Tuần 2: Mã Hóa Khối Đối Xứng & Thuật Toán AES (Symmetric Block Ciphers & AES)
 
 ## Mục Tiêu / Objectives

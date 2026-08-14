@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /1_System_App_Security/cybersecurity-10weeks/code/week08/README.md
+---
+
 # Tuần 08 — 20 code minh họa
 
 Học và chạy theo thứ tự:

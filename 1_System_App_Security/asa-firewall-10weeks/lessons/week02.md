@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week02"
+permalink: /1_System_App_Security/asa-firewall-10weeks/lessons/week02.md
+---
+
 # Tuần 2: Console, CLI và chế độ cấu hình
 
 ## Mục tiêu

@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Software"
+permalink: /1_System_App_Security/cybersecurity-10weeks/references/software.md
+---
+
 # Hướng Dẫn Cài Đặt Phần Mềm / Software Installation & Setup Guide
 
 Tài liệu này hướng dẫn thiết lập môi trường phát triển trên máy tính cá nhân.

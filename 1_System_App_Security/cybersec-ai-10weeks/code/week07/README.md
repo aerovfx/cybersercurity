@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/code/week07/README.md
+---
+
 # Tuần 07 — 20 code minh họa
 
 Chạy lần lượt từ bài 01 đến bài 20.

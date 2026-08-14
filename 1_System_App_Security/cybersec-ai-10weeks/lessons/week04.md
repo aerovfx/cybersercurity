@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week04"
+permalink: /1_System_App_Security/cybersec-ai-10weeks/lessons/week04.md
+---
+
 # Tuần 4: Đa luồng trong C++ & Phòng chống Tràn bộ đệm / Week 4: Multi-threading in C++ & Buffer Overflow Prevention
 
 ## Mục Tiêu / Objectives

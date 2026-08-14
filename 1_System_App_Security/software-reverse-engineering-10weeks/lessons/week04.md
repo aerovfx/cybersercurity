@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week04"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/lessons/week04.md
+---
+
 # Giáo trình Cyber Security – Reverse Engineering
 
 ## Tuần 4 – Bài 4

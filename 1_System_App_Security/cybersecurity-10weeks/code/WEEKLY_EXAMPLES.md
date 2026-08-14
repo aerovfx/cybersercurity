@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Weekly Examples"
+permalink: /1_System_App_Security/cybersecurity-10weeks/code/WEEKLY_EXAMPLES.md
+---
+
 # 200 code minh họa theo 10 tuần
 
 Mỗi tuần có 20 code đánh số từ 01 đến 20.

@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Readme"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/code/README.md
+---
+
 # Code lab
 
 Toàn bộ code trong thư mục này dùng cho binary do khóa học tự tạo hoặc kiểm tra PE tĩnh. Không cần tải crackme/phần mềm bên thứ ba.

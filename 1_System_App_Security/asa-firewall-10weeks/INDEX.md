@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Index"
+permalink: /1_System_App_Security/asa-firewall-10weeks/INDEX.md
+---
+
 # Cisco ASA Firewall — 10 tuần
 
 Cấu hình firewall ASA theo zone, quản trị an toàn, backup, upgrade và DHCP.

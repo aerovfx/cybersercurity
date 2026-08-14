@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Schedule"
+permalink: /1_System_App_Security/software-reverse-engineering-10weeks/schedule.md
+---
+
 # Lịch trình Giáo trình Software Reverse Engineering & Secure Patching (10 Tuần)
 
 | Tuần | Chủ đề | Giai đoạn & Chủ đề chính (41 bài) | Sản phẩm & Lab Artifacts |

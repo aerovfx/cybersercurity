@@ -1,3 +1,9 @@
+---
+layout: course
+title: "Week04"
+permalink: /1_System_App_Security/cybersecurity-10weeks/lessons/week04.md
+---
+
 # Tuần 4: Vulnerability Assessment & Buffer Overflow Defense (CEH v12 Module 04-07 Aligned)
 
 ## Mục Tiêu / Objectives (CEH v12 Aligned)
