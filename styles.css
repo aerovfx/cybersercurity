@@ -125,7 +125,7 @@ nav a:hover { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
 .filters { display: flex; gap: .35rem; }.filters button { border: 1px solid var(--line); color: var(--muted); background: transparent; padding: .65rem .9rem; font: 700 .65rem var(--mono); cursor: pointer; text-transform: uppercase; }
 .filters button:hover,.filters button.active { background: var(--cyan); border-color: var(--cyan); color: #001013; box-shadow: 0 0 18px rgba(49,247,255,.2); }
 .course-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; }
-.course-card { grid-column: span 2; background: linear-gradient(145deg,rgba(13,23,27,.96),rgba(6,11,14,.96)); border: 1px solid var(--line); padding: 1.7rem; min-height: 400px; display: flex; flex-direction: column; transition: .22s; position: relative; clip-path: polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px); }
+.course-card { grid-column: span 2; background: linear-gradient(145deg,rgba(13,23,27,.96),rgba(6,11,14,.96)); border: 1px solid var(--line); padding: 1.7rem; min-height: 500px; display: flex; flex-direction: column; transition: .22s; position: relative; clip-path: polygon(16px 0,100% 0,100% calc(100% - 16px),calc(100% - 16px) 100%,0 100%,0 16px); }
 .course-card::after { content: ""; position: absolute; top: 0; left: 16px; width: 55px; height: 2px; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); }
 .course-card.featured { border-color: rgba(198,255,0,.55); background: linear-gradient(145deg,rgba(28,38,16,.96),rgba(7,14,11,.98)); }
 .course-card.featured::after { background: var(--acid); box-shadow: 0 0 10px var(--acid); }
@@ -137,7 +137,14 @@ nav a:hover { color: var(--cyan); text-shadow: 0 0 10px var(--cyan); }
 .course-meta { font: 500 .6rem var(--mono)!important; text-transform: uppercase; letter-spacing: .1em; color: var(--cyan)!important; }
 .course-card h3 { font-size: 1.45rem; letter-spacing: -.035em; margin: .25rem 0 .6rem; text-transform: uppercase; }.course-card p { font-size: .8rem; color: #8fa4a8; margin: 0; }
 .tags { display: flex; gap: .35rem; margin: 1.2rem 0; }.tags span { font: 500 .56rem var(--mono); border: 1px solid rgba(49,247,255,.18); color: #8eb0b5; padding: .25rem .4rem; }
-.course-card > a { font: 700 .68rem var(--mono); color: var(--acid); margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; text-transform: uppercase; }.course-card > a:hover { text-shadow: 0 0 10px var(--acid); }
+.learning-links { display: grid; grid-template-columns: repeat(2,1fr); gap: 5px; margin: auto 0 1rem; padding-top: 1rem; }
+.learning-links a { min-width: 0; display: flex; align-items: center; gap: .5rem; padding: .58rem .62rem; border: 1px solid rgba(49,247,255,.16); background: rgba(49,247,255,.025); font: 500 .61rem var(--mono); text-transform: uppercase; transition: .18s; }
+.learning-links a b { color: var(--pink); font-weight: 500; font-size: .5rem; }
+.learning-links a span { overflow: hidden; text-overflow: ellipsis; }
+.learning-links a::after { content: "↗"; margin-left: auto; color: #4f696f; }
+.learning-links a:hover { color: #001013; background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 14px rgba(49,247,255,.2); }
+.learning-links a:hover b,.learning-links a:hover::after { color: #001013; }
+.course-card > .roadmap-link { font: 700 .65rem var(--mono); color: var(--acid); padding-top: .85rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; text-transform: uppercase; }.course-card > .roadmap-link:hover { text-shadow: 0 0 10px var(--acid); }
 .empty-state { text-align: center; padding: 3rem; color: var(--muted); }
 
 .method { background: linear-gradient(110deg,#071116,#0b1719); display: grid; grid-template-columns: .8fr 1.2fr; gap: 8vw; border-block: 1px solid var(--line); }
