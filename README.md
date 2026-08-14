@@ -2,6 +2,10 @@
 
 Trang học tập cho bộ giáo trình an toàn thông tin 10 tuần, gồm 5 lộ trình: Ethical Cybersecurity, Mật mã học ứng dụng, Reverse Engineering, Cybersecurity & AI và Cisco ASA Firewall.
 
+## Truy cập trang học tập
+
+**[Mở CyberLearn trên GitHub Pages →](https://aerovfx.github.io/cybersercurity/)**
+
 ## Chạy local
 
 Không cần cài dependency. Mở `index.html` trực tiếp hoặc chạy một static server:
