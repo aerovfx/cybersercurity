@@ -1,40 +1,58 @@
 // Tuần 03 · Bài 16: Kiểm tra nullptr.
-// Mục tiêu: Nhắc quy tắc phải kiểm tra con trỏ trước khi giải tham chiếu; ví dụ an toàn hơn vì không dùng con trỏ nullable.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: luôn kiểm tra con trỏ trước khi giải tham chiếu, và hiểu vì sao
+//   "không tìm thấy" là một kết quả bình thường chứ không phải một tai nạn.
+// Đầu vào: bảng tra cứu quy tắc giả lập, tra bằng một mã có thật và một mã không có.
+// Đầu ra: kết quả của cả hai lần tra, không lần nào làm sập chương trình.
+// An toàn: không giải tham chiếu con trỏ chưa kiểm tra; nullptr được xử lý tường minh.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <string>    // std::string
+#include <vector>    // std::vector: nơi thật sự chứa dữ liệu
+
+struct QuyTac {
+    std::string ma;
+    std::string mo_ta;
+};
+
+// Trả về con trỏ tới quy tắc, hoặc nullptr nếu không có. Kiểu trả về nói rõ
+// rằng "không có" là khả năng thực tế — người gọi buộc phải nghĩ tới nó.
+const QuyTac* tim(const std::vector<QuyTac>& bang, const std::string& ma) {
+    for (const QuyTac& q : bang) {
+        if (q.ma == ma) return &q;
+    }
+    return nullptr;  // không tìm thấy: một kết quả hợp lệ, không phải lỗi
+}
+
+// Mọi lần dùng đều đi qua đây, nên chỗ kiểm tra chỉ viết một lần và không sót.
+void in_quy_tac(const QuyTac* q, const std::string& ma_da_tim) {
+    // Nếu bỏ nhánh này và viết thẳng q->mo_ta, chương trình sẽ giải tham chiếu
+    // nullptr — hành vi không xác định, thường là sập ngay tại chỗ, và trên
+    // một số hệ thống thì tệ hơn: chạy tiếp với dữ liệu rác.
+    if (q == nullptr) {
+        std::cout << "  không có quy tắc nào mang mã " << ma_da_tim << '\n';
+        return;
+    }
+    std::cout << "  " << q->ma << ": " << q->mo_ta << '\n';
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{16, 26, 36};
+    const std::vector<QuyTac> bang{
+        {"LAB-001", "phát hiện quét cổng tuần tự trong lab"},
+        {"LAB-002", "phát hiện đăng nhập sai liên tiếp"},
+    };
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Kiểm tra nullptr";
+    // Trường hợp tìm thấy.
+    in_quy_tac(tim(bang, "LAB-002"), "LAB-002");
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    // Trường hợp KHÔNG tìm thấy — đường đi quan trọng nhất của bài này.
+    in_quy_tac(tim(bang, "LAB-999"), "LAB-999");
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
+    // Con trỏ khởi tạo tường minh bằng nullptr, không để nó mang giá trị rác.
+    const QuyTac* chua_gan = nullptr;
+    in_quy_tac(chua_gan, "(chưa gán)");
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "16 - " << lesson << ": " << total << '\n';
+    std::cout << "16 - Kiểm tra nullptr: 3 lần tra, 2 lần không có kết quả, "
+              << "0 lần sập\n";
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
     return 0;
 }

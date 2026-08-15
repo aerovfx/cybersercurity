@@ -1,40 +1,62 @@
-// Tuần 03 · Bài 14: shared ptr.
-// Mục tiêu: Nêu nguyên tắc đồng sở hữu và bộ đếm tham chiếu của std::shared_ptr; không dùng khi quyền sở hữu đơn giản.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Tuần 03 · Bài 14: shared_ptr.
+// Mục tiêu: hiểu đồng sở hữu và bộ đếm tham chiếu — tài nguyên sống tới khi chủ
+//   sở hữu CUỐI CÙNG buông tay, không sớm hơn và không muộn hơn.
+// Đầu vào: không có; chương trình tự tạo đối tượng mẫu.
+// Đầu ra: giá trị use_count() ở từng thời điểm và lúc đối tượng bị thu hồi.
+// An toàn: không new/delete thủ công; đối tượng chỉ bị huỷ đúng một lần.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <memory>    // std::shared_ptr, std::make_shared
+#include <string>    // std::string
+#include <vector>    // std::vector: một chủ sở hữu thứ hai để đếm tăng lên
+
+class BangQuyTac {
+public:
+    explicit BangQuyTac(std::string ten) : ten_(std::move(ten)) {
+        std::cout << "    + nạp " << ten_ << '\n';
+    }
+    ~BangQuyTac() { std::cout << "    - giải phóng " << ten_ << '\n'; }
+
+    const std::string& ten() const { return ten_; }
+
+private:
+    std::string ten_;
+};
+
+// Nhận const shared_ptr& để ĐỌC mà không làm bộ đếm nhúc nhích. Nếu nhận theo
+// giá trị, mỗi lần gọi sẽ tăng rồi giảm bộ đếm — đúng nhưng tốn công vô ích.
+void doc_ten(const std::shared_ptr<BangQuyTac>& bang) {
+    if (!bang) {  // nhánh lỗi: shared_ptr rỗng vẫn là trường hợp hợp lệ
+        std::cout << "    (chưa có bảng quy tắc)\n";
+        return;
+    }
+    std::cout << "    đang đọc " << bang->ten()
+              << ", số chủ sở hữu=" << bang.use_count() << '\n';
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{14, 24, 34};
+    // make_shared cấp phát đối tượng và khối đếm trong một lần xin bộ nhớ.
+    std::shared_ptr<BangQuyTac> chu_1 = std::make_shared<BangQuyTac>("quy-tắc-SOC");
+    std::cout << "  sau khi tạo: use_count=" << chu_1.use_count() << '\n';
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "shared ptr";
+    {
+        // Sao chép shared_ptr là hợp lệ và làm tăng bộ đếm — khác hẳn unique_ptr.
+        std::shared_ptr<BangQuyTac> chu_2 = chu_1;
+        std::cout << "  thêm chủ thứ hai: use_count=" << chu_1.use_count() << '\n';
+        doc_ten(chu_2);
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+        // Chủ sở hữu thứ ba nằm trong một container.
+        std::vector<std::shared_ptr<BangQuyTac>> kho{chu_1};
+        std::cout << "  thêm chủ trong vector: use_count=" << chu_1.use_count() << '\n';
+    }  // <- chu_2 và vector ra khỏi scope: bộ đếm giảm, đối tượng CHƯA bị huỷ
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
+    std::cout << "  ra khỏi scope: use_count=" << chu_1.use_count()
+              << " (đối tượng vẫn sống vì chu_1 còn giữ)\n";
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "14 - " << lesson << ": " << total << '\n';
+    doc_ten(nullptr);
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
-    return 0;
+    std::cout << "14 - shared_ptr: đối tượng chỉ bị giải phóng khi chủ cuối cùng "
+              << "buông, use_count hiện tại=" << chu_1.use_count() << '\n';
+
+    return 0;  // chu_1 ra khỏi scope, bộ đếm về 0, huỷ đúng một lần
 }

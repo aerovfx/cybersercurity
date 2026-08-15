@@ -1,40 +1,51 @@
-// Tuần 03 · Bài 19: Bound checking với at.
-// Mục tiêu: Dùng .at(i) để kiểm tra biên và ném std::out_of_range nếu chỉ số không hợp lệ.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Tuần 03 · Bài 19: Bound checking với .at().
+// Mục tiêu: dùng .at() để chỉ số vượt biên bị phát hiện NGAY khi chạy, thay vì
+//   âm thầm đọc vùng nhớ bên cạnh như toán tử [].
+// Đầu vào: danh sách điểm giả lập và một chỉ số cố tình nằm ngoài biên.
+// Đầu ra: giá trị đọc hợp lệ, và thông báo bắt được ngoại lệ out_of_range.
+// An toàn: chỉ số sai được xử lý bằng ngoại lệ; không lần nào dùng [] ngoài biên.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>   // std::cout
+#include <stdexcept>  // std::out_of_range: ngoại lệ mà .at() ném ra
+#include <vector>     // std::vector
+
+// Đọc có kiểm soát: bọc .at() trong try/catch để lỗi chỉ số thành một giá trị
+// mặc định có kiểm soát, thay vì làm sập cả chương trình.
+int doc_an_toan(const std::vector<int>& diem, std::size_t vi_tri, int mac_dinh) {
+    try {
+        // .at() so chỉ số với size() trước khi truy cập. Chi phí là một phép so
+        // sánh; đổi lại, một lỗi chỉ số không còn là lỗ hổng đọc ngoài vùng nhớ.
+        return diem.at(vi_tri);
+    } catch (const std::out_of_range& e) {
+        // Nhánh lỗi: nói rõ chỉ số nào sai. Với [] thì không có nhánh này để
+        // viết — không có gì báo cho ta biết là đã đọc sai chỗ.
+        std::cout << "    chỉ số " << vi_tri << " vượt biên (" << e.what()
+                  << "), dùng giá trị mặc định\n";
+        return mac_dinh;
+    }
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{19, 29, 39};
+    const std::vector<int> diem{10, 20, 30};
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Bound checking với at";
+    // Trong biên: trả về đúng phần tử.
+    std::cout << "  đọc vị trí 1: " << doc_an_toan(diem, 1, -1) << '\n';
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    // Ngoài biên: .at() ném, ta bắt và xử lý. Chương trình đi tiếp bình thường.
+    std::cout << "  đọc vị trí 9: " << doc_an_toan(diem, 9, -1) << '\n';
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+    // Cách phòng ngừa còn rẻ hơn: kiểm tra trước khi đọc. Dùng khi chỉ số vượt
+    // biên là chuyện thường gặp, vì ngoại lệ nên dành cho trường hợp bất thường.
+    const std::size_t muon_doc = 5;
+    if (muon_doc < diem.size()) {
+        std::cout << "  kiểm tra trước: đọc được " << diem[muon_doc] << '\n';
+    } else {
+        std::cout << "  kiểm tra trước: " << muon_doc << " >= size()="
+                  << diem.size() << " nên không đọc\n";
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "19 - " << lesson << ": " << total << '\n';
+    std::cout << "19 - Bound checking với .at(): mọi truy cập đều được kiểm tra, "
+              << "chỉ số sai bị bắt chứ không bị bỏ qua\n";
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
     return 0;
 }

@@ -1,40 +1,46 @@
-// Tuần 03 · Bài 07: std string an toàn.
-// Mục tiêu: Dùng std::string để tự quản lý vùng nhớ chuỗi, giảm nguy cơ tràn bộ đệm so với mảng ký tự C.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Tuần 03 · Bài 07: std::string an toàn.
+// Mục tiêu: dùng std::string tự quản lý bộ nhớ thay cho mảng ký tự kiểu C, thứ
+//   đứng sau phần lớn lỗi tràn bộ đệm trong phần mềm thật.
+// Đầu vào: các chuỗi mẫu viết sẵn trong mã (nhãn cảnh báo giả lập).
+// Đầu ra: chuỗi sau khi ghép, độ dài, kết quả tìm kiếm và cắt chuỗi.
+// An toàn: không mảng char thô, không strcpy, không cần biết trước độ dài đệm.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <string>    // std::string
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{7, 17, 27};
+    // std::string sở hữu vùng nhớ của chính nó và tự nới ra khi cần. Với mảng
+    // char thô, lập trình viên phải tự đoán trước độ dài tối đa — đoán thiếu là
+    // tràn bộ đệm, đoán thừa là lãng phí, và không có cách nào đoán đúng luôn.
+    std::string canh_bao = "ALERT";
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "std string an toàn";
+    // += nới chuỗi theo nhu cầu. Chỗ này với strcat() sẽ là một lỗi tràn nếu bộ
+    // đệm đích không đủ chỗ, và strcat() không có cách nào biết điều đó.
+    canh_bao += "-";
+    canh_bao += "port-scan";
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    // .size() luôn khớp với nội dung thật; không có biến độ dài riêng để lệch.
+    std::cout << "  chuỗi=" << canh_bao << ", độ dài=" << canh_bao.size() << '\n';
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+    // .find() trả std::string::npos khi không thấy. So sánh với npos là nhánh
+    // lỗi bắt buộc: nếu bỏ qua và đem giá trị trả về đi cắt chuỗi thì sẽ ném
+    // std::out_of_range hoặc lấy nhầm đoạn.
+    const std::size_t vi_tri = canh_bao.find("port");
+    if (vi_tri == std::string::npos) {
+        std::cout << "  không tìm thấy 'port' trong chuỗi\n";
+    } else {
+        // .substr() tạo chuỗi MỚI, không chỉnh sửa chuỗi gốc và không trả về
+        // con trỏ vào vùng nhớ của nó — nên không có nguy cơ dùng sau khi hỏng.
+        std::cout << "  tìm thấy 'port' ở vị trí " << vi_tri
+                  << ", phần đuôi=" << canh_bao.substr(vi_tri) << '\n';
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "07 - " << lesson << ": " << total << '\n';
+    // So sánh bằng == đọc đúng nghĩa. Với char* thì == so sánh ĐỊA CHỈ chứ không
+    // so sánh nội dung, một cái bẫy im lặng phải dùng strcmp mới tránh được.
+    const bool dung_nhan = (canh_bao == "ALERT-port-scan");
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
-    return 0;
+    std::cout << "07 - std::string an toàn: nhãn khớp=" << (dung_nhan ? "đúng" : "sai")
+              << ", không dùng mảng char thô lần nào\n";
+
+    return 0;  // chuỗi tự giải phóng khi ra khỏi scope, không cần free()
 }

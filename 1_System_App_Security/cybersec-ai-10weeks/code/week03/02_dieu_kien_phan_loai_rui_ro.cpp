@@ -1,40 +1,53 @@
 // Tuần 03 · Bài 02: Điều kiện phân loại rủi ro.
-// Mục tiêu: Chuẩn bị dữ liệu điểm để phân loại rủi ro; ví dụ tập trung vào bước tổng hợp điểm trước khi đưa vào if/else.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: dùng if / else if / else để ánh xạ một điểm số thành mức rủi ro, và
+//   thấy vì sao thứ tự các nhánh quyết định kết quả.
+// Đầu vào: danh sách điểm giả lập 0–100 viết sẵn trong mã.
+// Đầu ra: mỗi điểm kèm mức rủi ro tương ứng, và số cảnh báo mức cao.
+// An toàn: thuần tính toán trên dữ liệu cục bộ; không đọc đầu vào chưa kiểm chứng.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <array>     // std::array: danh sách điểm mẫu, số phần tử cố định
+#include <iostream>  // std::cout
+#include <string>    // std::string: nhãn mức rủi ro trả về
+
+// Hàm phân loại. Trả std::string thay vì int để chỗ gọi đọc ra nghĩa ngay.
+//
+// Các nhánh xếp từ CAO xuống THẤP có chủ đích: nếu đảo ngược thứ tự thì điều
+// kiện `diem >= 40` sẽ khớp trước và mọi điểm từ 40 trở lên đều bị gán "trung
+// bình" — một lỗi phân loại im lặng, chương trình vẫn chạy và vẫn in ra kết quả.
+std::string muc_rui_ro(int diem) {
+    // Nhánh lỗi đứng TRƯỚC mọi nhánh phân loại: điểm âm không nằm trong thang
+    // 0–100 nên là dữ liệu hỏng, không phải rủi ro thấp. Nếu để nó xuống cuối,
+    // điều kiện `diem < 40` sẽ nuốt mất và -3 lặng lẽ thành "thấp".
+    if (diem < 0 || diem > 100) {
+        return "không hợp lệ";
+    } else if (diem >= 80) {
+        return "cao";
+    } else if (diem >= 40) {
+        return "trung bình";
+    } else {
+        // else cuối cùng bắt trọn phần còn lại (0–39), nên hàm luôn trả về một
+        // giá trị trên mọi đường đi — không có nhánh nào rơi ra ngoài.
+        return "thấp";
+    }
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{2, 12, 22};
+    // Dữ liệu giả lập, cố tình có một giá trị âm để chạy qua nhánh lỗi.
+    const std::array<int, 5> diem_su_kien{12, 45, 80, 99, -3};
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Điều kiện phân loại rủi ro";
+    int so_canh_bao_cao = 0;  // đếm riêng để in tổng kết ở cuối
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
-
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+    // Range-for: không cần chỉ số nên không có cơ hội viết sai chỉ số. const&
+    // tránh sao chép và ngăn sửa nhầm phần tử đang duyệt.
+    for (const int& diem : diem_su_kien) {
+        const std::string muc = muc_rui_ro(diem);
+        if (muc == "cao") ++so_canh_bao_cao;
+        std::cout << "  điểm " << diem << " -> " << muc << '\n';
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "02 - " << lesson << ": " << total << '\n';
+    std::cout << "02 - Điều kiện phân loại rủi ro: "
+              << so_canh_bao_cao << " cảnh báo mức cao trên "
+              << diem_su_kien.size() << " sự kiện\n";
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
     return 0;
 }

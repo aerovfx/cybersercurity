@@ -1,40 +1,42 @@
 // Tuần 03 · Bài 01: Biến và kiểu dữ liệu C++.
-// Mục tiêu: Phân biệt số nguyên int, chuỗi std::string và container std::array; quan sát cách mỗi kiểu dữ liệu biểu diễn một loại thông tin.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: phân biệt số nguyên, số thực, luận lý, chuỗi và container kích thước
+//   cố định; thấy mỗi kiểu dùng để biểu diễn loại thông tin nào.
+// Đầu vào: hằng số viết sẵn trong mã, không đọc bàn phím, file hay mạng.
+// Đầu ra: một dòng tóm tắt các giá trị mẫu và kích thước của kiểu int.
+// An toàn: dữ liệu giả lập cục bộ; không cấp phát thủ công, không I/O ra ngoài.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <array>     // std::array: container có số phần tử cố định, biết lúc biên dịch
+#include <cstddef>   // std::size_t: kiểu chỉ số/kích thước thư viện chuẩn trả về
+#include <iostream>  // std::cout: ghi ra thiết bị đầu ra chuẩn
+#include <string>    // std::string: chuỗi tự quản lý vùng nhớ của chính nó
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{1, 11, 21};
+    // const khoá giá trị sau khi khởi tạo. Dữ liệu đầu vào của một bài học không
+    // có lý do gì để đổi, và khoá lại thì trình biên dịch bắt được lỗi sửa nhầm.
+    const int so_su_kien = 3;                     // đếm được, không có phần lẻ
+    const double ti_le_canh_bao = 0.66;           // cần phần thập phân
+    const bool da_kiem_chung = false;             // chỉ đúng hoặc sai
+    const std::string ten_nguon = "lab-fixture";  // độ dài thay đổi được
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Biến và kiểu dữ liệu C++";
+    // Kích thước nằm ngay trong KIỂU (std::array<int, 3>), nên không thể truyền
+    // mảng đi mà quên mất độ dài — khác mảng C thô phải mang theo biến size riêng.
+    const std::array<int, 3> diem_rui_ro{20, 55, 80};
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
-
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+    int tong = 0;
+    // .size() trả std::size_t; dùng đúng kiểu đó cho biến đếm để tránh cảnh báo
+    // so sánh giữa số có dấu và không dấu.
+    for (std::size_t i = 0; i < diem_rui_ro.size(); ++i) {
+        tong += diem_rui_ro.at(i);  // .at() kiểm tra biên khi chạy
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "01 - " << lesson << ": " << total << '\n';
+    std::cout << "01 - Biến và kiểu dữ liệu C++: "
+              << "nguồn=" << ten_nguon
+              << ", số sự kiện=" << so_su_kien
+              << ", tổng điểm=" << tong
+              << ", tỉ lệ cảnh báo=" << ti_le_canh_bao
+              << ", đã kiểm chứng=" << (da_kiem_chung ? "có" : "chưa")
+              << ", sizeof(int)=" << sizeof(int) << " byte"
+              << '\n';
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
-    return 0;
+    return 0;  // 0 báo cho hệ điều hành biết chương trình kết thúc bình thường
 }

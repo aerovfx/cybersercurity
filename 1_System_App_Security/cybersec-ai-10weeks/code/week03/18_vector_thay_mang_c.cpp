@@ -1,40 +1,52 @@
 // Tuần 03 · Bài 18: Vector thay mảng C.
-// Mục tiêu: Khuyến nghị container chuẩn thay mảng C; với kích thước động dùng vector, với kích thước cố định dùng array như ví dụ.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: thấy vì sao container chuẩn an toàn hơn mảng C thô — kích thước đi
+//   cùng dữ liệu, thay vì nằm trong một biến rời có thể lệch bất cứ lúc nào.
+// Đầu vào: cùng một tập dữ liệu, viết bằng hai cách để so sánh trực tiếp.
+// Đầu ra: tổng tính được theo mỗi cách và số phần tử mà mỗi cách tự biết.
+// An toàn: mảng C ở đây chỉ để đối chiếu, luôn duyệt trong biên; ưu tiên vector.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <cstddef>   // std::size_t
+#include <iostream>  // std::cout
+#include <numeric>   // std::accumulate: cộng dồn không cần viết vòng lặp bằng tay
+#include <vector>    // std::vector
+
+// CÁCH CŨ: mảng C thô suy biến thành con trỏ khi truyền đi, nên hàm buộc phải
+// nhận thêm tham số `n`. Không có gì bắt `n` phải đúng — truyền nhầm số lớn hơn
+// là đọc ra ngoài mảng, và chương trình vẫn chạy, vẫn in ra một con số trông
+// hợp lý. Đây là hình dạng của rất nhiều lỗi bảo mật ngoài đời thật.
+int tong_mang_c(const int* du_lieu, std::size_t n) {
+    int tong = 0;
+    for (std::size_t i = 0; i < n; ++i) tong += du_lieu[i];
+    return tong;
+}
+
+// CÁCH MỚI: vector mang theo kích thước của chính nó. Không có tham số `n` để
+// truyền sai, và hàm không thể bị lừa đọc quá phần dữ liệu thật.
+int tong_vector(const std::vector<int>& du_lieu) {
+    return std::accumulate(du_lieu.begin(), du_lieu.end(), 0);
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{18, 28, 38};
+    // Mảng C thô: kích thước nằm ở nơi khác, trong đầu lập trình viên.
+    const int mang_c[5] = {22, 53, 80, 443, 8080};
+    const std::size_t so_phan_tu = 5;  // phải tự nhớ, và tự cập nhật khi sửa mảng
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Vector thay mảng C";
+    // Vector: thêm bớt phần tử thì .size() tự đúng theo, không cần sửa chỗ nào khác.
+    const std::vector<int> vec{22, 53, 80, 443, 8080};
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    std::cout << "  mảng C : tổng=" << tong_mang_c(mang_c, so_phan_tu)
+              << ", số phần tử phải truyền tay=" << so_phan_tu << '\n';
+    std::cout << "  vector : tổng=" << tong_vector(vec)
+              << ", số phần tử tự biết=" << vec.size() << '\n';
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
+    // Vector còn làm được việc mà mảng C không làm được: đổi kích thước lúc chạy.
+    std::vector<int> them = vec;
+    them.push_back(9200);
+    std::cout << "  sau push_back: size=" << them.size()
+              << ", tổng mới=" << tong_vector(them) << '\n';
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "18 - " << lesson << ": " << total << '\n';
+    std::cout << "18 - Vector thay mảng C: cùng dữ liệu, nhưng chỉ một cách "
+              << "không thể truyền sai kích thước\n";
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
     return 0;
 }

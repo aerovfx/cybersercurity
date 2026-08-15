@@ -1,40 +1,61 @@
 // Tuần 03 · Bài 09: Con trỏ observer.
-// Mục tiêu: Giải thích nền tảng dữ liệu mà con trỏ observer có thể quan sát; observer không sở hữu và không được giải phóng đối tượng.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: dùng con trỏ thô như một "người quan sát" không sở hữu đối tượng, và
+//   nắm quy tắc đi kèm: ai không sở hữu thì tuyệt đối không được giải phóng.
+// Đầu vào: danh sách phát hiện giả lập do main sở hữu.
+// Đầu ra: mô tả phần tử được quan sát, và trường hợp không tìm thấy.
+// An toàn: observer chỉ đọc; không delete, không giữ con trỏ quá vòng đời chủ sở hữu.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <string>    // std::string
+#include <vector>    // std::vector: chủ sở hữu thật sự của các phần tử
+
+struct PhatHien {
+    std::string ma;
+    int diem;
+};
+
+// Nhận const PhatHien*: chỉ QUAN SÁT. Hàm này không cấp phát, không giải phóng,
+// không cất con trỏ lại chỗ nào. Nó chỉ nhìn trong lúc được gọi.
+//
+// Quy tắc của observer: vòng đời do chủ sở hữu quyết định. Nếu hàm này gọi
+// delete thì nó đang phá huỷ thứ nó chỉ được cho mượn, và vector ở main sẽ giải
+// phóng lần thứ hai — lỗi double free.
+void mo_ta(const PhatHien* quan_sat) {
+    // Nhánh lỗi: observer hoàn toàn có thể là nullptr (không tìm thấy). Kiểm tra
+    // trước khi giải tham chiếu là bắt buộc, không phải tuỳ chọn.
+    if (quan_sat == nullptr) {
+        std::cout << "  không có phát hiện nào để quan sát\n";
+        return;
+    }
+    std::cout << "  quan sát " << quan_sat->ma << " (điểm " << quan_sat->diem << ")\n";
+}
+
+// Trả về observer tới phần tử trong vector, hoặc nullptr nếu không có.
+// Con trỏ trả về CHỈ hợp lệ chừng nào `ds` còn sống và không bị thêm phần tử.
+const PhatHien* tim_diem_cao_nhat(const std::vector<PhatHien>& ds) {
+    if (ds.empty()) return nullptr;
+
+    const PhatHien* cao_nhat = &ds.front();  // & lấy địa chỉ phần tử, không sao chép
+    for (const PhatHien& p : ds) {
+        if (p.diem > cao_nhat->diem) cao_nhat = &p;
+    }
+    return cao_nhat;
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{9, 19, 29};
+    // main sở hữu dữ liệu. Vector cấp phát và sẽ tự giải phóng khi ra khỏi scope.
+    const std::vector<PhatHien> ds{{"LAB-001", 30}, {"LAB-002", 85}, {"LAB-003", 60}};
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Con trỏ observer";
+    const PhatHien* cao_nhat = tim_diem_cao_nhat(ds);
+    mo_ta(cao_nhat);
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    // Trường hợp rỗng: hàm trả nullptr và observer xử lý đúng, không sập.
+    const std::vector<PhatHien> rong{};
+    mo_ta(tim_diem_cao_nhat(rong));
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
+    std::cout << "09 - Con trỏ observer: đã quan sát "
+              << (cao_nhat != nullptr ? cao_nhat->ma : std::string("(không có)"))
+              << ", không lần nào gọi delete\n";
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "09 - " << lesson << ": " << total << '\n';
-
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
-    return 0;
+    return 0;  // vector giải phóng phần tử của nó; observer chỉ việc biến mất
 }

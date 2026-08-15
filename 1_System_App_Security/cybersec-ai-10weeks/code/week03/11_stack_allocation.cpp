@@ -1,40 +1,53 @@
 // Tuần 03 · Bài 11: Stack allocation.
-// Mục tiêu: Các biến cục bộ có vòng đời tự động trong phạm vi main và được hủy khi hàm kết thúc.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: thấy biến cục bộ sống trên stack có vòng đời tự động theo scope —
+//   sinh ra khi vào, huỷ khi ra, không cần một dòng lệnh dọn dẹp nào.
+// Đầu vào: không có; chương trình tự tạo đối tượng mẫu.
+// Đầu ra: nhật ký thứ tự khởi tạo và huỷ, cho thấy huỷ theo chiều ngược lại.
+// An toàn: không cấp phát heap, không rò rỉ; mọi thứ do trình biên dịch dọn.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <string>    // std::string
 
-int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{11, 21, 31};
-
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Stack allocation";
-
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
-
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+// Lớp chỉ để quan sát vòng đời: in ra khi sinh và khi huỷ.
+class PhienLab {
+public:
+    // Hàm khởi tạo chạy khi đối tượng ra đời, tại đúng dòng khai báo nó.
+    explicit PhienLab(std::string ten) : ten_(std::move(ten)) {
+        std::cout << "    + mở phiên " << ten_ << '\n';
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "11 - " << lesson << ": " << total << '\n';
+    // Hàm huỷ chạy TỰ ĐỘNG khi đối tượng ra khỏi scope. Không ai gọi nó bằng
+    // tay, và nó vẫn chạy kể cả khi hàm thoát sớm vì return hay vì ngoại lệ.
+    ~PhienLab() { std::cout << "    - đóng phiên " << ten_ << '\n'; }
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
-    return 0;
+    const std::string& ten() const { return ten_; }
+
+private:
+    std::string ten_;
+};
+
+void mot_pham_vi_long_nhau() {
+    PhienLab ngoai("ngoài");  // sinh ra ở đây
+    {
+        // Scope lồng bên trong: đối tượng này chết ở dấu } ngay dưới, sớm hơn
+        // hẳn `ngoai`, dù cả hai cùng nằm trong một hàm.
+        PhienLab trong("trong");
+        std::cout << "    đang ở trong scope lồng, cả hai phiên cùng sống\n";
+    }  // <- `trong` bị huỷ tại đây
+    std::cout << "    ra khỏi scope lồng, chỉ còn phiên " << ngoai.ten() << '\n';
+}  // <- `ngoai` bị huỷ tại đây
+
+int main() {
+    std::cout << "  bắt đầu main\n";
+    mot_pham_vi_long_nhau();
+
+    // Thứ tự huỷ là NGƯỢC với thứ tự sinh: cái tạo sau chết trước. Đó là điều
+    // làm cho RAII (bài 15) hoạt động đúng khi các tài nguyên phụ thuộc nhau.
+    PhienLab a("A");
+    PhienLab b("B");
+
+    std::cout << "11 - Stack allocation: không có new, không có delete, "
+              << "vòng đời do scope quyết định\n";
+
+    return 0;  // b huỷ trước, rồi tới a
 }

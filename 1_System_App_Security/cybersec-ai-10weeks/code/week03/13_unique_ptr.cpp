@@ -1,40 +1,62 @@
-// Tuần 03 · Bài 13: unique ptr.
-// Mục tiêu: Nêu nguyên tắc một chủ sở hữu của std::unique_ptr; ví dụ này không cần heap nên ưu tiên đối tượng có vòng đời tự động.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Tuần 03 · Bài 13: unique_ptr.
+// Mục tiêu: nắm quyền sở hữu DUY NHẤT — một lúc chỉ một chủ — và việc giải phóng
+//   tự động khi chủ sở hữu ra khỏi scope.
+// Đầu vào: không có; chương trình tự tạo đối tượng mẫu.
+// Đầu ra: nhật ký cấp phát, chuyển quyền sở hữu và thu hồi.
+// An toàn: không new/delete thủ công; không thể sao chép nên không có double free.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <memory>    // std::unique_ptr, std::make_unique, std::move
+#include <string>    // std::string
+#include <utility>   // std::move
+
+class KetNoiLab {
+public:
+    explicit KetNoiLab(std::string ten) : ten_(std::move(ten)) {
+        std::cout << "    + mở " << ten_ << '\n';
+    }
+    ~KetNoiLab() { std::cout << "    - đóng " << ten_ << '\n'; }
+
+    const std::string& ten() const { return ten_; }
+
+private:
+    std::string ten_;
+};
+
+// Nhận unique_ptr theo GIÁ TRỊ nghĩa là hàm này TIẾP QUẢN quyền sở hữu. Chữ ký
+// hàm nói thẳng điều đó, nên người đọc không phải đoán ai chịu trách nhiệm dọn.
+void tiep_quan(std::unique_ptr<KetNoiLab> ket_noi) {
+    if (!ket_noi) {  // unique_ptr rỗng chuyển thành false
+        std::cout << "    (không nhận được kết nối nào)\n";
+        return;
+    }
+    std::cout << "    tiếp quản " << ket_noi->ten() << '\n';
+}  // <- ra khỏi scope: đối tượng bị huỷ ngay tại đây
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{13, 23, 33};
+    // make_unique cấp phát và bọc luôn trong một bước. Ưu tiên nó hơn
+    // unique_ptr<T>(new T(...)) vì không để lộ ra một con trỏ thô nào ở giữa.
+    std::unique_ptr<KetNoiLab> chinh = std::make_unique<KetNoiLab>("kết-nối-chính");
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "unique ptr";
+    std::cout << "  chinh đang giữ: " << chinh->ten() << '\n';
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    // unique_ptr KHÔNG sao chép được — dòng `auto ban_sao = chinh;` sẽ không
+    // biên dịch. Đó chính là điều ngăn hai chỗ cùng tưởng mình sở hữu rồi cùng
+    // giải phóng một đối tượng.
+    //
+    // std::move nói rõ: chuyển quyền, không nhân bản.
+    tiep_quan(std::move(chinh));
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
+    // Sau khi move, `chinh` rỗng. Kiểm tra được, và đây là trạng thái hợp lệ —
+    // không phải con trỏ treo.
+    std::cout << "  sau move, chinh còn giữ gì không: "
+              << (chinh ? "có" : "không") << '\n';
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "13 - " << lesson << ": " << total << '\n';
+    // Gọi với một unique_ptr rỗng để chạy qua nhánh kiểm tra trong hàm.
+    tiep_quan(nullptr);
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
+    std::cout << "13 - unique_ptr: một chủ sở hữu tại một thời điểm, "
+              << "giải phóng tự động, không viết delete lần nào\n";
+
     return 0;
 }

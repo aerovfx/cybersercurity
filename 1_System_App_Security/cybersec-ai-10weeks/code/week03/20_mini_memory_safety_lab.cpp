@@ -1,40 +1,80 @@
 // Tuần 03 · Bài 20: Mini memory safety lab.
-// Mục tiêu: Tổng hợp các thói quen an toàn: tránh cấp phát thô, bất biến dữ liệu đầu vào, giới hạn vòng lặp và truy cập có kiểm tra biên.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: gộp các thói quen an toàn của cả tuần vào một luồng xử lý nhỏ —
+//   container chuẩn, kiểm tra biên, kiểm tra nullptr, RAII và unique_ptr.
+// Đầu vào: danh sách sự kiện bảo mật giả lập, cố tình có một bản ghi hỏng.
+// Đầu ra: báo cáo phân loại, và nhật ký cho thấy tài nguyên được thu hồi đúng lúc.
+// An toàn: toàn bộ dữ liệu là giả lập cục bộ; không new/delete thủ công, không
+//   truy cập ngoài biên, không giải tham chiếu con trỏ chưa kiểm tra.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>   // std::cout
+#include <memory>     // std::unique_ptr, std::make_unique
+#include <stdexcept>  // std::out_of_range
+#include <string>     // std::string
+#include <vector>     // std::vector
+
+struct SuKien {
+    std::string ma;
+    int diem;  // 0–100; giá trị ngoài thang là dữ liệu hỏng
+};
+
+// RAII (bài 15): phiên báo cáo tự đóng khi ra khỏi scope, kể cả khi có ngoại lệ.
+class PhienBaoCao {
+public:
+    explicit PhienBaoCao(std::string ten) : ten_(std::move(ten)) {
+        std::cout << "  [mở phiên " << ten_ << "]\n";
+    }
+    ~PhienBaoCao() { std::cout << "  [đóng phiên " << ten_ << "]\n"; }
+
+    PhienBaoCao(const PhienBaoCao&) = delete;             // cấm sao chép:
+    PhienBaoCao& operator=(const PhienBaoCao&) = delete;  // một phiên, một chủ
+
+private:
+    std::string ten_;
+};
+
+// Kiểm tra nullptr (bài 16): trả về observer, "không có" là kết quả hợp lệ.
+const SuKien* nghiem_trong_nhat(const std::vector<SuKien>& ds) {
+    const SuKien* cao_nhat = nullptr;
+    for (const SuKien& s : ds) {
+        if (s.diem < 0 || s.diem > 100) continue;  // bỏ qua bản ghi hỏng
+        if (cao_nhat == nullptr || s.diem > cao_nhat->diem) cao_nhat = &s;
+    }
+    return cao_nhat;
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{20, 30, 40};
+    // unique_ptr (bài 13): phiên nằm trên heap nhưng không ai phải nhớ delete.
+    const std::unique_ptr<PhienBaoCao> phien =
+        std::make_unique<PhienBaoCao>("mini-memory-safety-lab");
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Mini memory safety lab";
+    // std::vector (bài 06, 18): kích thước đi cùng dữ liệu.
+    const std::vector<SuKien> su_kien{
+        {"LAB-001", 30}, {"LAB-002", 85}, {"LAB-003", 60}, {"LAB-004", -7},
+    };
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
-
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+    int hop_le = 0, hong = 0;
+    for (const SuKien& s : su_kien) {  // const&: duyệt không sao chép (bài 10)
+        if (s.diem < 0 || s.diem > 100) {
+            ++hong;
+            std::cout << "  bỏ qua bản ghi hỏng: " << s.ma << " (điểm " << s.diem << ")\n";
+            continue;  // nhánh lỗi: loại bỏ tường minh, không lặng lẽ tính vào
+        }
+        ++hop_le;
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "20 - " << lesson << ": " << total << '\n';
+    // Bound checking (bài 19): chỉ số ngoài biên bị bắt, không đọc trộm bộ nhớ.
+    try {
+        std::cout << "  thử đọc vị trí 10: " << su_kien.at(10).ma << '\n';
+    } catch (const std::out_of_range&) {
+        std::cout << "  vị trí 10 vượt biên, đã bị .at() chặn lại\n";
+    }
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
-    return 0;
+    const SuKien* nang_nhat = nghiem_trong_nhat(su_kien);
+    std::cout << "  nghiêm trọng nhất: "
+              << (nang_nhat != nullptr ? nang_nhat->ma : std::string("(không có)")) << '\n';
+
+    std::cout << "20 - Mini memory safety lab: " << hop_le << " bản ghi hợp lệ, "
+              << hong << " bản ghi hỏng, 0 lần cấp phát thủ công\n";
+
+    return 0;  // unique_ptr huỷ phiên; hàm huỷ của PhienBaoCao in dòng cuối cùng
 }

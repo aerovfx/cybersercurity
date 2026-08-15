@@ -1,40 +1,46 @@
-// Tuần 03 · Bài 06: std vector động.
-// Mục tiêu: Đối chiếu với std::vector: ví dụ dùng kích thước cố định, còn vector phù hợp khi số phần tử thay đổi lúc chạy.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Tuần 03 · Bài 06: std::vector động.
+// Mục tiêu: dùng std::vector khi số phần tử chỉ biết lúc chạy, và đối chiếu với
+//   std::array để thấy khi nào nên chọn cái nào.
+// Đầu vào: danh sách port quét được, thêm dần từng phần tử trong lúc chạy.
+// Đầu ra: số phần tử và sức chứa sau mỗi lần thêm, cùng kết quả lọc.
+// An toàn: bộ nhớ do vector tự cấp phát và tự thu hồi; không new/delete thủ công.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <array>     // std::array: để so sánh với vector
+#include <iostream>  // std::cout
+#include <vector>    // std::vector: container tăng giảm được lúc chạy
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{6, 16, 26};
+    // std::array: số phần tử CỐ ĐỊNH, quyết định lúc viết code. Không thêm bớt
+    // được, đổi lại không bao giờ phải cấp phát lại vùng nhớ.
+    const std::array<int, 3> port_biet_truoc{22, 80, 443};
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "std vector động";
+    // std::vector: bắt đầu rỗng, dài ra theo dữ liệu thực tế. Đây là lựa chọn
+    // đúng khi số phần tử phụ thuộc đầu vào — điều mà array không làm được.
+    std::vector<int> port_quet_duoc;
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    // reserve() báo trước sức chứa cần dùng. Không bắt buộc, nhưng nếu biết
+    // trước quy mô thì nó tránh được vài lần cấp phát lại và sao chép dữ liệu.
+    port_quet_duoc.reserve(4);
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+    // Thêm dần. size() là số phần tử ĐANG có; capacity() là chỗ đã xin sẵn.
+    // Hai con số này khác nhau, và nhầm lẫn giữa chúng là hiểu sai về vector.
+    for (const int p : {8080, 53, 3306, 5432}) {
+        port_quet_duoc.push_back(p);
+        std::cout << "  thêm " << p << " -> size=" << port_quet_duoc.size()
+                  << ", capacity=" << port_quet_duoc.capacity() << '\n';
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "06 - " << lesson << ": " << total << '\n';
+    // Lọc ra port cao (>= 1024). Vector đích cũng tự lo bộ nhớ cho chính nó.
+    std::vector<int> port_cao;
+    for (const int& p : port_quet_duoc) {
+        if (p >= 1024) port_cao.push_back(p);
+    }
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
+    std::cout << "06 - std::vector động: cố định " << port_biet_truoc.size()
+              << " phần tử, động " << port_quet_duoc.size() << " phần tử, trong đó "
+              << port_cao.size() << " port >= 1024\n";
+
+    // Không có delete ở đây, và đó là điểm chính: vector giải phóng vùng nhớ của
+    // nó khi ra khỏi scope, kể cả khi hàm thoát sớm vì một ngoại lệ.
     return 0;
 }

@@ -1,40 +1,44 @@
-// Tuần 03 · Bài 05: std array cố định.
-// Mục tiêu: Sử dụng std::array khi số phần tử đã biết tại thời điểm biên dịch, tránh mảng C thô.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Tuần 03 · Bài 05: std::array cố định.
+// Mục tiêu: dùng std::array khi số phần tử đã biết trước, và thấy kích thước
+//   được mang theo trong kiểu nên không bao giờ bị thất lạc.
+// Đầu vào: bảng port dịch vụ mẫu, cố định 5 phần tử.
+// Đầu ra: phần tử đầu/cuối, số phần tử, một truy cập có kiểm biên và tổng.
+// An toàn: không cấp phát động, không chỉ số ngoài biên; mọi truy cập qua .at().
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <array>     // std::array
+#include <cstddef>   // std::size_t
+#include <iostream>  // std::cout
+
+// Tham số là std::array<int, 5>: độ dài là MỘT PHẦN CỦA KIỂU. Truyền nhầm mảng
+// 3 phần tử vào đây là lỗi biên dịch, không phải lỗi lúc chạy. Mảng C thô khi
+// truyền đi sẽ suy biến thành con trỏ và mất sạch thông tin độ dài.
+int tong_cua(const std::array<int, 5>& port) {
+    int tong = 0;
+    for (const int& p : port) tong += p;
+    return tong;
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{5, 15, 25};
+    // Số phần tử cố định lúc biên dịch, dữ liệu nằm trên stack — không có new,
+    // không có delete, nên không có gì để rò rỉ.
+    const std::array<int, 5> port_dich_vu{22, 53, 80, 443, 8080};
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "std array cố định";
+    // .size() lấy thẳng từ kiểu; không cần biến `n` đi kèm và do đó không có
+    // nguy cơ biến đó lệch khỏi mảng thật sau một lần sửa code.
+    const std::size_t so_phan_tu = port_dich_vu.size();
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    // .front() / .back() đọc ra ý định rõ hơn hẳn [0] và [n - 1] — nhất là
+    // [n - 1], nơi một lỗi trừ thiếu một đơn vị rất dễ lọt qua mắt người đọc.
+    std::cout << "  phần tử đầu=" << port_dich_vu.front()
+              << ", phần tử cuối=" << port_dich_vu.back()
+              << ", số phần tử=" << so_phan_tu << '\n';
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
+    // Truy cập theo chỉ số vẫn dùng .at(): nó kiểm tra biên khi chạy và ném
+    // std::out_of_range nếu sai, thay vì đọc trộm vùng nhớ bên cạnh như [].
+    std::cout << "  port ở vị trí 2 = " << port_dich_vu.at(2) << '\n';
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "05 - " << lesson << ": " << total << '\n';
+    std::cout << "05 - std::array cố định: tổng " << tong_cua(port_dich_vu)
+              << " từ " << so_phan_tu << " phần tử\n";
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
     return 0;
 }

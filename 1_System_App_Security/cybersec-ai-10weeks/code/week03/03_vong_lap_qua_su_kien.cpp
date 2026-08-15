@@ -1,40 +1,43 @@
 // Tuần 03 · Bài 03: Vòng lặp qua sự kiện.
-// Mục tiêu: Duyệt tuần tự một tập sự kiện bằng chỉ số; mỗi phần tử được xử lý đúng một lần.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: duyệt tuần tự một danh sách sự kiện sao cho mỗi phần tử được xử lý
+//   đúng một lần, và chứng minh điều đó bằng bộ đếm chứ không bằng niềm tin.
+// Đầu vào: danh sách sự kiện mạng giả lập viết sẵn trong mã.
+// Đầu ra: số lần xuất hiện của từng giao thức và tổng số lượt xử lý.
+// An toàn: dữ liệu lab cục bộ; không bắt gói tin thật, không chạm tới card mạng.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <cstddef>   // std::size_t
+#include <iostream>  // std::cout
+#include <map>       // std::map: đếm theo khoá, tự sắp xếp theo thứ tự khoá
+#include <string>    // std::string
+#include <vector>    // std::vector: danh sách sự kiện, số phần tử biết lúc chạy
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{3, 13, 23};
+    // Sự kiện giả lập. Cố ý lặp "tcp" để phần đếm có việc để làm.
+    const std::vector<std::string> su_kien{"tcp", "dns", "tcp", "icmp", "tcp", "dns"};
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Vòng lặp qua sự kiện";
+    std::map<std::string, int> dem_theo_giao_thuc;
+    std::size_t luot_xu_ly = 0;  // bằng chứng: phải bằng đúng su_kien.size() ở cuối
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
-
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+    // Range-for duyệt từ đầu tới cuối, mỗi phần tử đúng một lượt. Không có biến
+    // chỉ số nên không thể lỡ tay ++i hai lần hay bỏ sót phần tử cuối — hai lỗi
+    // kinh điển của vòng lặp viết bằng chỉ số thủ công.
+    for (const std::string& giao_thuc : su_kien) {
+        ++dem_theo_giao_thuc[giao_thuc];  // khoá chưa có thì map tạo mới với giá trị 0
+        ++luot_xu_ly;
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "03 - " << lesson << ": " << total << '\n';
+    // Duyệt map để in. const auto& tránh sao chép từng cặp khoá-giá trị.
+    for (const auto& cap : dem_theo_giao_thuc) {
+        std::cout << "  " << cap.first << " xuất hiện " << cap.second << " lần\n";
+    }
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
+    // Bất biến của bài: số lượt xử lý phải khớp số phần tử. Lệch nghĩa là vòng
+    // lặp đã bỏ sót hoặc đếm trùng, và ta muốn biết ngay tại đây.
+    const bool dung_mot_lan = (luot_xu_ly == su_kien.size());
+
+    std::cout << "03 - Vòng lặp qua sự kiện: xử lý " << luot_xu_ly << "/"
+              << su_kien.size() << " sự kiện, mỗi phần tử đúng một lần="
+              << (dung_mot_lan ? "đúng" : "SAI") << '\n';
+
     return 0;
 }

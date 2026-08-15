@@ -1,40 +1,59 @@
 // Tuần 03 · Bài 12: Heap allocation.
-// Mục tiêu: Đối chiếu với heap: ví dụ không cấp phát động nên không cần new/delete và không có nguy cơ rò rỉ từ cấp phát thủ công.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: đối chiếu đối tượng trên heap với đối tượng cục bộ, và hiểu vì sao
+//   cặp new/delete thủ công là nguồn rò rỉ bộ nhớ kinh điển.
+// Đầu vào: không có; chương trình tự tạo đối tượng mẫu.
+// Đầu ra: nhật ký vòng đời của bản trên stack và bản trên heap.
+// An toàn: mọi new trong bài đều có delete tương ứng, và bản khuyến nghị dùng
+//   std::unique_ptr để không còn phải nhớ điều đó.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <memory>    // std::unique_ptr, std::make_unique — cách làm được khuyến nghị
+#include <string>    // std::string
+
+class BoDem {
+public:
+    explicit BoDem(std::string ten) : ten_(std::move(ten)) {
+        std::cout << "    + cấp phát " << ten_ << '\n';
+    }
+    ~BoDem() { std::cout << "    - thu hồi " << ten_ << '\n'; }
+
+private:
+    std::string ten_;
+};
+
+// Cách THỦ CÔNG, viết đúng — và vẫn mong manh.
+//
+// Mong manh vì delete chỉ chạy nếu luồng điều khiển đi tới được nó. Thêm một
+// lệnh return sớm ở giữa, hoặc một hàm ném ngoại lệ, là đối tượng rò rỉ ngay —
+// và trình biên dịch không hề cảnh báo. Đúng ở thời điểm viết không có nghĩa là
+// còn đúng sau lần sửa thứ ba.
+void cach_thu_cong() {
+    BoDem* p = new BoDem("heap-thủ-công");  // xin vùng nhớ trên heap
+
+    // ... phần xử lý ...  Mọi `return` chèn vào đây đều thành một chỗ rò rỉ.
+
+    delete p;   // bắt buộc, và phải đúng một lần
+    p = nullptr;  // đặt lại để không ai lỡ tay dùng con trỏ đã chết (bài 17)
+}
+
+// Cách ĐƯỢC KHUYẾN NGHỊ: vẫn nằm trên heap, nhưng quyền sở hữu do unique_ptr
+// giữ, và nó gọi delete giúp — kể cả khi hàm thoát sớm hoặc có ngoại lệ.
+void cach_tu_dong() {
+    std::unique_ptr<BoDem> p = std::make_unique<BoDem>("heap-unique_ptr");
+    // Không có delete ở đây. Không quên được, vì không có gì để quên.
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{12, 22, 32};
-
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Heap allocation";
-
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
-
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
+    // Trên stack: vòng đời gắn với scope, không liên quan gì tới heap.
+    {
+        BoDem cuc_bo("stack-cục-bộ");
     }
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "12 - " << lesson << ": " << total << '\n';
+    cach_thu_cong();
+    cach_tu_dong();
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
+    std::cout << "12 - Heap allocation: heap cho phép sống lâu hơn scope, "
+              << "cái giá là phải trả lại vùng nhớ — hãy để unique_ptr trả hộ\n";
+
     return 0;
 }

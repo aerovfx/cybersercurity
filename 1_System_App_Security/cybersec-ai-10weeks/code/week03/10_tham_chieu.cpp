@@ -1,40 +1,56 @@
 // Tuần 03 · Bài 10: Tham chiếu.
-// Mục tiêu: Dữ liệu có thể được truyền qua tham chiếu để tránh sao chép; ví dụ giữ mọi thao tác cục bộ trong main.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: dùng tham chiếu để truy cập dữ liệu mà không tạo bản sao thừa, và
+//   chứng minh "không sao chép" bằng địa chỉ chứ không bằng lời khẳng định.
+// Đầu vào: một bản ghi phát hiện giả lập có chứa chuỗi (thứ tốn kém khi sao chép).
+// Đầu ra: địa chỉ của bản gốc so với địa chỉ nhìn thấy bên trong từng kiểu tham số.
+// An toàn: tham chiếu luôn gắn với đối tượng đang sống; không có tham chiếu treo.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <string>    // std::string
+#include <vector>    // std::vector
+
+struct PhatHien {
+    std::string ma;
+    std::string mo_ta;
+    int diem;
+};
+
+// Tham TRỊ: tạo bản sao toàn bộ struct, gồm cả hai std::string bên trong. Với
+// dữ liệu lớn hoặc trong vòng lặp, đây là chi phí thật và hoàn toàn tránh được.
+void xem_ban_sao(PhatHien p) {
+    std::cout << "    tham trị     -> địa chỉ " << &p << " (bản sao)\n";
+}
+
+// Tham chiếu HẰNG: không sao chép, và const bảo đảm hàm không sửa bản gốc. Đây
+// là mặc định nên dùng khi chỉ cần đọc một đối tượng không phải kiểu nhỏ gọn.
+void xem_tham_chieu(const PhatHien& p) {
+    std::cout << "    const&       -> địa chỉ " << &p << " (chính bản gốc)\n";
+}
+
+// Tham chiếu KHÔNG hằng: dùng khi thật sự cần sửa. Khác con trỏ ở chỗ tham chiếu
+// không thể là null và không cần kiểm tra trước khi dùng.
+void nang_diem(PhatHien& p, int them) {
+    p.diem += them;
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{10, 20, 30};
+    PhatHien goc{"LAB-042", "quét cổng trong lab nội bộ", 50};
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Tham chiếu";
+    std::cout << "  bản gốc      -> địa chỉ " << &goc << '\n';
+    xem_ban_sao(goc);
+    xem_tham_chieu(goc);
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    nang_diem(goc, 25);  // sửa thật, không cần & ở chỗ gọi như con trỏ
+    std::cout << "  sau nang_diem: điểm=" << goc.diem << '\n';
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
+    // Trong vòng lặp thì khác biệt này nhân lên theo số phần tử: const& duyệt
+    // mà không sao chép phần tử nào.
+    const std::vector<PhatHien> ds{goc, {"LAB-043", "đăng nhập sai nhiều lần", 70}};
+    int tong = 0;
+    for (const PhatHien& p : ds) tong += p.diem;
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "10 - " << lesson << ": " << total << '\n';
+    std::cout << "10 - Tham chiếu: tổng điểm " << tong << " từ " << ds.size()
+              << " bản ghi, duyệt không sao chép bản nào\n";
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
     return 0;
 }

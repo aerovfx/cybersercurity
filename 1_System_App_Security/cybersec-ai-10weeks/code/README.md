@@ -26,4 +26,4 @@ Mỗi tuần có một thư mục riêng gồm 20 ví dụ, đánh số lại t�
 - Chỉ dùng dữ liệu giả lập hoặc `127.0.0.1`.
 - Không quét Internet, không thu thập credential và không gọi API bên ngoài.
 - Chạy Python: `python3 code/weekXX/NN_ten_file.py`.
-- Biên dịch C++: `c++ -std=c++17 code/week03/05_cpp_types.cpp -o /tmp/demo`.
+- Biên dịch C++: `c++ -std=c++17 code/week03/05_std_array_co_dinh.cpp -o /tmp/demo`.

@@ -1,40 +1,68 @@
 // Tuần 03 · Bài 17: Tránh dangling pointer.
-// Mục tiêu: Tránh giữ địa chỉ của đối tượng đã hết vòng đời; container và chuỗi ở đây sống đến hết main.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: nhận ra ba tình huống làm con trỏ trỏ vào đối tượng đã chết, và biết
+//   cách viết lại để tình huống đó không xảy ra được.
+// Đầu vào: dữ liệu giả lập cục bộ.
+// Đầu ra: kết quả của các cách viết AN TOÀN đã thay thế cho từng tình huống.
+// An toàn: bài này KHÔNG giải tham chiếu con trỏ treo lần nào — hành vi không
+//   xác định không thể "minh hoạ" được, vì kết quả của nó không đáng tin.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+#include <string>    // std::string
+#include <vector>    // std::vector
+
+// TÌNH HUỐNG 1 — trả về địa chỉ của biến cục bộ.
+//
+//   const int* sai() { int x = 42; return &x; }   // x chết khi hàm return
+//
+// Cách đúng: trả về GIÁ TRỊ. Bản sao thuộc về người gọi nên luôn còn sống.
+int cach_dung_1() {
+    const int diem_cuc_bo = 42;
+    return diem_cuc_bo;
+}
+
+// TÌNH HUỐNG 2 — giữ con trỏ vào phần tử vector rồi thêm phần tử.
+//
+// push_back có thể cấp phát vùng nhớ mới và chuyển toàn bộ phần tử sang đó; mọi
+// con trỏ và iterator lấy trước đó lập tức thành treo. Nguy hiểm ở chỗ nó không
+// phải lúc nào cũng xảy ra — chỉ khi vector cần nới — nên lỗi này chạy đúng
+// hàng trăm lần rồi hỏng đúng lần thứ một nghìn.
+//
+// Cách đúng: giữ CHỈ SỐ, thứ vẫn còn nghĩa sau khi vector nới.
+int cach_dung_2() {
+    std::vector<int> diem{10, 20, 30};
+
+    const std::size_t vi_tri = 1;  // giữ chỉ số, không giữ &diem[1]
+    diem.push_back(40);            // sau dòng này, con trỏ cũ đã có thể vô hiệu
+
+    return diem.at(vi_tri);  // lấy lại từ chỉ số: luôn đúng
+}
+
+// TÌNH HUỐNG 3 — dùng con trỏ sau khi delete.
+//
+// Cách đúng: đừng tự quản lý vòng đời. std::string ở đây sở hữu dữ liệu của nó
+// và không có gì để delete, nên cũng không có gì để dùng nhầm sau khi delete.
+std::string cach_dung_3() {
+    std::string nhan = "LAB-";
+    nhan += "017";
+    return nhan;  // trả về giá trị; người gọi nhận một đối tượng còn sống
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{17, 27, 37};
+    std::cout << "  1) trả về giá trị thay vì địa chỉ biến cục bộ: "
+              << cach_dung_1() << '\n';
+    std::cout << "  2) giữ chỉ số thay vì con trỏ vào phần tử vector: "
+              << cach_dung_2() << '\n';
+    std::cout << "  3) để đối tượng tự sở hữu dữ liệu, không delete thủ công: "
+              << cach_dung_3() << '\n';
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Tránh dangling pointer";
+    // Thói quen bổ trợ: sau khi một con trỏ hết nhiệm vụ, gán nullptr. Nó không
+    // sửa được lỗi thiết kế, nhưng biến một lỗi im lặng thành một lỗi mà nhánh
+    // kiểm tra ở bài 16 bắt được.
+    const int* quan_sat = nullptr;
+    std::cout << "  con trỏ đã dọn: " << (quan_sat == nullptr ? "nullptr" : "còn trỏ") << '\n';
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    std::cout << "17 - Tránh dangling pointer: 3 tình huống, 3 cách viết lại, "
+              << "0 lần chạm vào vùng nhớ đã chết\n";
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
-
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "17 - " << lesson << ": " << total << '\n';
-
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
     return 0;
 }

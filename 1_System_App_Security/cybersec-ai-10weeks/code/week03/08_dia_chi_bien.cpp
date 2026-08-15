@@ -1,40 +1,50 @@
 // Tuần 03 · Bài 08: Địa chỉ biến.
-// Mục tiêu: Các biến trong ví dụ đều có địa chỉ trong bộ nhớ; toán tử & có thể lấy địa chỉ nhưng không cần thiết cho phép tính này.
-// Lưu ý an toàn: chương trình chỉ minh họa trên dữ liệu cục bộ, không đọc đầu vào
-// chưa kiểm chứng và không thực hiện cấp phát/giải phóng bộ nhớ thủ công.
+// Mục tiêu: hiểu địa chỉ bộ nhớ là gì, lấy nó bằng toán tử & và đọc lại giá trị
+//   bằng toán tử *; quan trọng hơn là biết khi nào KHÔNG cần địa chỉ.
+// Đầu vào: hai biến cục bộ giả lập.
+// Đầu ra: giá trị, địa chỉ của từng biến, và bằng chứng truyền tham trị tạo bản sao.
+// An toàn: chỉ đọc địa chỉ của biến cục bộ còn sống; không có số học con trỏ.
 
-// <array> cung cấp std::array: container kích thước cố định, biết rõ số phần tử.
-// <iostream> cung cấp std::cout để ghi kết quả ra thiết bị đầu ra chuẩn.
-// <string> cung cấp std::string, tự quản lý bộ nhớ chứa chuỗi ký tự.
-#include <array>
-#include <iostream>
-#include <string>
+#include <iostream>  // std::cout
+
+// Tham TRỊ: hàm nhận một BẢN SAO. Sửa bên trong không ảnh hưởng bản gốc, nên ở
+// đây không cần địa chỉ của gì cả — đó là mặc định nên chọn khi chỉ cần đọc.
+void tang_ban_sao(int diem) {
+    diem += 100;  // chỉ đổi bản sao cục bộ, biến của người gọi giữ nguyên
+    // In ngay tại đây để thấy bản sao ĐÃ đổi thật — và địa chỉ của nó khác hẳn
+    // địa chỉ bản gốc, đó là bằng chứng nó là một ô nhớ riêng.
+    std::cout << "    (trong hàm: bản sao=" << diem << " tại địa chỉ " << &diem << ")\n";
+}
+
+// Tham CHIẾU qua con trỏ: hàm nhận ĐỊA CHỈ nên sửa được biến gốc. Chỉ dùng khi
+// thật sự cần sửa, vì nó cho hàm quyền tác động ra ngoài phạm vi của nó.
+void tang_ban_goc(int* diem) {
+    // Nhánh lỗi bắt buộc: con trỏ có thể là nullptr, và giải tham chiếu nullptr
+    // là hành vi không xác định — thường là sập chương trình.
+    if (diem == nullptr) return;
+    *diem += 100;  // * đọc/ghi vào ô nhớ mà con trỏ đang chỉ tới
+}
 
 int main() {
-    // const khóa dữ liệu đầu vào sau khi khởi tạo, ngăn sửa nhầm trong lúc tính.
-    // Tham số mẫu 3 là kích thước cố định; trình biên dịch kiểm tra kiểu của
-    // cả ba phần tử đều là int.
-    const std::array<int, 3> scores{8, 18, 28};
+    int diem_goc = 42;
+    const double ti_le = 0.5;
 
-    // std::string sở hữu vùng nhớ của chính nó; không cần mảng char hoặc hàm
-    // sao chép chuỗi kiểu C vốn dễ gây lỗi vượt quá kích thước bộ đệm.
-    const std::string lesson = "Địa chỉ biến";
+    // & lấy địa chỉ. In ra để thấy đó là một con số định vị ô nhớ, và hai biến
+    // khác nhau nằm ở hai địa chỉ khác nhau.
+    std::cout << "  diem_goc=" << diem_goc << " tại địa chỉ " << &diem_goc << '\n';
+    std::cout << "  ti_le=" << ti_le << " tại địa chỉ " << &ti_le << '\n';
 
-    // Biến tích lũy bắt đầu từ phần tử trung hòa của phép cộng là 0.
-    int total = 0;
+    tang_ban_sao(diem_goc);
+    std::cout << "  sau tang_ban_sao (tham trị): diem_goc=" << diem_goc << '\n';
 
-    // std::size_t là kiểu chỉ số phù hợp với giá trị do scores.size() trả về.
-    // Điều kiện i < scores.size() bảo đảm vòng lặp dừng trước cuối container.
-    // .at(i) kiểm tra biên khi chạy; nếu i sai, chương trình báo lỗi rõ ràng
-    // thay vì âm thầm truy cập vùng nhớ ngoài phạm vi như toán tử [] có thể làm.
-    for (std::size_t i = 0; i < scores.size(); ++i) {
-        total += scores.at(i);  // Cộng điểm hiện tại vào tổng đã tính trước đó.
-    }
+    tang_ban_goc(&diem_goc);  // truyền địa chỉ vì lần này muốn sửa thật
+    std::cout << "  sau tang_ban_goc (qua địa chỉ): diem_goc=" << diem_goc << '\n';
 
-    // Ghép mã bài, tên bài và tổng điểm; ký tự xuống dòng không buộc flush
-    // bộ đệm như std::endl, phù hợp với đầu ra đơn giản này.
-    std::cout << "08 - " << lesson << ": " << total << '\n';
+    // Gọi với nullptr để chứng minh nhánh kiểm tra ở trên có tác dụng thật.
+    tang_ban_goc(nullptr);
 
-    // Trả về 0 cho hệ điều hành để xác nhận chương trình kết thúc thành công.
+    std::cout << "08 - Địa chỉ biến: tham trị không đổi bản gốc, qua địa chỉ thì có; "
+              << "giá trị cuối=" << diem_goc << '\n';
+
     return 0;
 }
